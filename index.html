@@ -203,6 +203,44 @@ table.stock td,table.stock th{padding:8px 4px;border-bottom:1px solid var(--card
 table.stock th{color:var(--faint);font-weight:600;font-size:12px}
 table.stock td.n{text-align:right;font-variant-numeric:tabular-nums}
 
+/* ---------- Lotus: lời chúc, Top 5, BTC ---------- */
+.menu-2{grid-template-columns:1fr 1fr}
+.greet-line{display:block;width:100%;margin:0 0 6px;padding:9px 12px;border-radius:12px;background:linear-gradient(90deg,rgba(252,209,122,.16),rgba(244,177,131,.12));border:1px solid rgba(252,209,122,.35);color:#FFE7AE;font-size:13px;font-weight:600;text-align:center;line-height:1.4}
+.greet-wrap{position:fixed;inset:0;z-index:70;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(8,5,2,.8);backdrop-filter:blur(4px)}
+.greet-wrap.open{display:flex}
+.greet{max-width:400px;width:100%;text-align:center;padding:22px 20px;border-radius:22px;background:linear-gradient(180deg,#2E2214,#140D07);border:1px solid rgba(252,209,122,.45);box-shadow:0 20px 60px rgba(0,0,0,.6),0 0 60px rgba(252,209,122,.15);animation:prizeIn .5s cubic-bezier(.2,1.4,.4,1) both}
+.greet img{height:64px;display:block;margin:0 auto}
+.greet canvas{width:120px;height:110px;display:block;margin:0 auto}
+.greet .from{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:700}
+.greet h2{font-family:"Prata",serif;font-weight:400;font-size:26px;line-height:1.3;margin:8px 0;background:linear-gradient(100deg,#FFE7AE,#FCD17A 50%,#D9A443);-webkit-background-clip:text;background-clip:text;color:transparent}
+.greet p{color:var(--muted);margin:0 0 16px}
+.prize-top{display:flex;align-items:center;gap:14px}
+.prize-top .crown{flex:0 0 auto;font-family:var(--display);font-weight:800;font-size:20px;line-height:1;padding:12px;border-radius:14px;background:linear-gradient(180deg,#FFE7AE,#D9A443);color:#1A1209}
+.stat.in-top{border-color:rgba(252,209,122,.7);background:rgba(252,209,122,.14)}
+.rank-big{text-align:center;margin-bottom:8px}
+.rank-big:empty{display:none}
+.rank-big b{display:block;font-family:var(--display);font-size:48px;line-height:1.05;color:var(--ink)}
+.rank-big small{display:block;font-size:12px;color:var(--muted)}
+.rank-big.in-top b{background:linear-gradient(180deg,#FFE7AE,#D9A443);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lb.top{border-color:rgba(252,209,122,.55);background:linear-gradient(90deg,rgba(252,209,122,.18),rgba(252,209,122,.05))}
+.lb.top .sc{color:var(--gold)}
+.lb.me{box-shadow:inset 0 0 0 2px #F4B183}
+.lb .rk.rt{background:linear-gradient(180deg,#FFE7AE,#D9A443);color:#1A1209}
+.tag.top{background:rgba(252,209,122,.2);color:var(--gold)}
+.top-cut{font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);text-align:center;margin:6px 0 2px;border-top:1px dashed rgba(252,209,122,.35);padding-top:8px}
+.gold{color:var(--gold)}
+.btn-sm{width:auto;display:inline-flex;padding:8px 12px;font-size:13px;border-radius:10px}
+.adm-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.adm-actions{display:flex;flex-wrap:wrap;gap:6px}
+.adm-table-wrap{overflow-x:auto;border-radius:14px;border:1px solid var(--card-b);background:rgba(11,8,5,.7)}
+.adm-table{width:100%;border-collapse:collapse;font-size:13px;white-space:nowrap}
+.adm-table th,.adm-table td{padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.06);text-align:left}
+.adm-table th{color:var(--faint);font-size:11.5px;text-transform:uppercase;letter-spacing:.06em}
+.adm-table td.n{text-align:right;font-variant-numeric:tabular-nums}
+.adm-table tr.top td{background:rgba(252,209,122,.12)}
+.adm-table tr.top td:first-child{box-shadow:inset 3px 0 0 var(--gold)}
+body:has(#s-admin.active) #app{max-width:980px}
+.mock-badge{position:fixed;left:8px;bottom:8px;z-index:90;padding:4px 8px;border-radius:8px;background:#F4B183;color:#1A1209;font-size:11px;font-weight:700}
 .toast{position:fixed;left:50%;bottom:max(24px,env(safe-area-inset-bottom));transform:translate(-50%,30px);opacity:0;z-index:80;padding:11px 16px;border-radius:12px;background:#fff;color:#111;font-weight:600;font-size:14px;box-shadow:0 10px 30px rgba(0,0,0,.35);transition:all .25s;max-width:90vw;text-align:center}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;transition-duration:.01ms !important}}
@@ -217,49 +255,50 @@ table.stock td.n{text-align:right;font-variant-numeric:tabular-nums}
   <section class="screen active" id="s-home">
     <div class="topbar">
       <img class="logo" src="img/lotus-10.png" alt="Lotus Hospitality · 10 Years">
-      <button class="chip" id="csChip" aria-label="Đổi đơn vị"><span class="dot"></span><span id="csChipText">Chọn đơn vị</span></button>
+      <button class="chip" id="csChip" aria-label="Đổi thông tin"><span class="dot"></span><span id="csChipText">Chưa đăng ký</span></button>
     </div>
+
+    <button class="greet-line" id="btnGreet">🎂 Ban Giải pháp Công nghệ Tập đoàn chúc mừng sinh nhật 10 năm Lotus Hospitality</button>
 
     <div class="hero">
       <span class="eyebrow">Kỷ niệm 10 năm Lotus Hospitality</span>
       <h1 class="title-xl">Hứng quà <span class="accent">10 năm</span></h1>
-      <p class="sub">Hứng logo Lotus và các thương hiệu trong 45 giây.<br>Hứng được <b>bánh kem</b> thì điểm nhân đôi.<br>Đạt <b id="thLabel">300</b> điểm là được mở hộp quà.</p>
+      <p class="sub">Hứng logo Lotus và các thương hiệu trong 45 giây.<br>Hứng được <b>bánh kem</b> thì điểm nhân đôi.<br><b>Top <span class="topN">5</span></b> điểm cao nhất nhận quà.</p>
       <canvas id="heroCanvas" aria-hidden="true"></canvas>
     </div>
 
     <div class="stats">
-      <div class="stat"><div class="v" id="stTurns">3/3</div><div class="l">Lượt hôm nay</div></div>
-      <div class="stat"><div class="v" id="stBest">0</div><div class="l">Điểm cao nhất</div></div>
-      <div class="stat"><div class="v" id="stBox">1</div><div class="l">Hộp quà</div></div>
+      <div class="stat"><div class="v" id="stTurns">–</div><div class="l">Lượt còn lại</div></div>
+      <div class="stat"><div class="v" id="stBest">–</div><div class="l">Điểm cao nhất</div></div>
+      <div class="stat"><div class="v" id="stRank">–</div><div class="l">Hạng của bạn</div></div>
     </div>
 
     <button class="btn btn-primary mt16" id="btnPlay">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.14v13.72a1 1 0 0 0 1.53.85l10.6-6.86a1 1 0 0 0 0-1.7L9.53 4.29A1 1 0 0 0 8 5.14Z"/></svg>
-      <span id="btnPlayText">Chơi ngay</span>
+      <span id="btnPlayText">Đăng ký và chơi</span>
     </button>
 
-    <div class="menu">
-      <button data-go="wallet"><span class="badge" id="walletBadge" hidden>0</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M12 8v13M3 12h18M12 8c-1.5-3-5-4-5.5-1.5S9 8 12 8Zm0 0c1.5-3 5-4 5.5-1.5S15 8 12 8Z"/></svg>
-        Ví quà</button>
+    <div class="menu menu-2">
       <button data-go="board">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4Z"/><path d="M17 6h3v2a3 3 0 0 1-3 3M7 6H4v2a3 3 0 0 0 3 3"/></svg>
-        Xếp hạng</button>
+        Bảng xếp hạng</button>
       <button data-go="rules">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5Z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>
         Thể lệ</button>
     </div>
 
-    <div class="section-label">Quà trong hộp</div>
-    <div class="prizes-strip" id="prizeStrip"></div>
+    <div class="section-label">Giải thưởng</div>
+    <div class="card prize-top">
+      <div class="crown">TOP <span class="topN">5</span></div>
+      <div><b>Top <span class="topN">5</span> điểm cao nhất</b> nhận quà của Lotus Hospitality. Mỗi người tính lượt có điểm cao nhất.</div>
+    </div>
 
     <div class="section-label">Logo rơi trong game</div>
     <div class="brands" id="brandStrip"></div>
 
     <div class="footer">
-      <div class="demo">BẢN DEMO</div><br>
       Kỷ niệm 10 năm · Lotus Hospitality<br>
-      <button class="link mt8" data-go="staff">Dành cho Ban tổ chức</button>
+      <a class="link mt8" href="#admin" id="lnkAdmin">Dành cho Ban tổ chức</a>
     </div>
   </section>
 
@@ -272,64 +311,27 @@ table.stock td.n{text-align:right;font-variant-numeric:tabular-nums}
       <div id="resBest"></div>
     </div>
     <div class="card mt20">
-      <div id="resMsg" style="font-weight:600"></div>
-      <div class="progress"><i id="resBar"></i></div>
-      <div class="progress-lab"><span>0</span><span>Mốc mở quà: <b id="resTh">300</b></span></div>
+      <div class="rank-big" id="resRank"></div>
+      <div id="resMsg" style="font-weight:600;text-align:center"></div>
       <div class="res-stats">
         <div class="stat"><div class="v" id="rGifts">0</div><div class="l">Logo hứng được</div></div>
         <div class="stat"><div class="v" id="rCake">0</div><div class="l">Bánh kem x2</div></div>
         <div class="stat"><div class="v" id="rCoal">0</div><div class="l">Dính mây giông</div></div>
       </div>
     </div>
-    <button class="btn btn-green mt16" id="btnOpenBox" hidden>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M12 8v13M3 12h18M12 8c-1.5-3-5-4-5.5-1.5S9 8 12 8Zm0 0c1.5-3 5-4 5.5-1.5S15 8 12 8Z"/></svg>
-      Mở hộp quà ngay</button>
-    <button class="btn btn-primary mt12" id="btnReplay">Chơi lại</button>
+    <button class="btn btn-green mt16" id="btnResend" hidden>Gửi lại điểm</button>
+    <button class="btn btn-primary mt16" id="btnReplay">Chơi lại</button>
+    <button class="btn btn-ghost mt12" data-go="board">Xem bảng xếp hạng</button>
     <button class="btn btn-ghost mt12" data-go="home">Về trang chủ</button>
-  </section>
-
-  <!-- ================= GIFT ================= -->
-  <section class="screen" id="s-gift">
-    <div class="topbar"><img class="logo" src="img/lotus-10.png" alt="Lotus 10 Years"><span class="chip">Hộp quà hôm nay</span></div>
-    <div class="center">
-      <h2 class="h2" id="giftTitle">Chọn 1 hộp quà</h2>
-      <p class="sub" id="giftSub">Mỗi hộp chứa một phần quà ngẫu nhiên của Lotus Hospitality.</p>
-    </div>
-    <div class="boxes idle" id="boxes">
-      <div class="gbox" style="--c:#2E2214;--rb:#FCD17A" data-i="0"><div class="lid"><div class="bow"></div></div><div class="body"></div><div class="q">?</div></div>
-      <div class="gbox" style="--c:#D9A443;--rb:#FFF8EC" data-i="1"><div class="lid"><div class="bow"></div></div><div class="body"></div><div class="q">?</div></div>
-      <div class="gbox" style="--c:#8C5A2E;--rb:#FCD17A" data-i="2"><div class="lid"><div class="bow"></div></div><div class="body"></div><div class="q">?</div></div>
-    </div>
-    <div class="prize-card" id="prizeCard">
-      <div class="small" style="color:var(--gold);font-weight:700;letter-spacing:.12em;text-transform:uppercase">Chúc mừng! Bạn nhận được</div>
-      <div class="ic mt12" id="pcIcon"></div>
-      <div class="pname" id="pcName"></div>
-      <div class="sub" id="pcDesc"></div>
-      <div class="code" id="pcCode"></div>
-      <div class="small mt8" id="pcExp"></div>
-      <div class="note" style="text-align:left">Đưa mã này cho Ban tổ chức để nhận quà. Mã đã được lưu trong <b>Ví quà</b>.</div>
-    </div>
-    <div id="giftActions" hidden>
-      <button class="btn btn-primary mt16" data-go="wallet">Xem ví quà</button>
-      <button class="btn btn-ghost mt12" data-go="home">Về trang chủ</button>
-    </div>
-  </section>
-
-  <!-- ================= WALLET ================= -->
-  <section class="screen" id="s-wallet">
-    <button class="back" data-go="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>Trang chủ</button>
-    <h2 class="h2">Ví quà của bạn</h2>
-    <p class="sub">Bấm vào quà để xem mã, rồi đưa mã cho Ban tổ chức.</p>
-    <div class="list" id="walletList"></div>
   </section>
 
   <!-- ================= BOARD ================= -->
   <section class="screen" id="s-board">
     <button class="back" data-go="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>Trang chủ</button>
     <h2 class="h2">Bảng xếp hạng</h2>
-    <p class="sub">Top 3 mỗi đơn vị nhận quà tại tiệc kỷ niệm 10 năm.</p>
+    <p class="sub">Toàn bộ người chơi, xếp theo điểm cao nhất của mỗi người. <b class="gold">Top <span class="topN">5</span></b> nhận quà.</p>
     <div class="tabs" id="boardTabs">
-      <button class="on" data-tab="all">Toàn hệ thống</button>
+      <button class="on" data-tab="all">Tất cả</button>
       <button data-tab="cs" id="tabCs">Đơn vị của tôi</button>
     </div>
     <div class="list" id="boardList"></div>
@@ -343,7 +345,7 @@ table.stock td.n{text-align:right;font-variant-numeric:tabular-nums}
       <h3>Thời gian và đối tượng</h3>
       <ul>
         <li>Trong thời gian diễn ra chương trình kỷ niệm 10 năm Lotus Hospitality (BTC thông báo ngày cụ thể).</li>
-        <li>Dành cho cán bộ nhân viên, khách hàng và đối tác của Lotus Hospitality cùng các thương hiệu thành viên. Quét mã QR để chơi.</li>
+        <li>Dành cho cán bộ nhân viên, khách hàng và đối tác của Lotus Hospitality cùng các thương hiệu thành viên.</li>
       </ul>
       <h3>Cách chơi</h3>
       <ul>
@@ -352,46 +354,33 @@ table.stock td.n{text-align:right;font-variant-numeric:tabular-nums}
         <li><b>Bánh kem sinh nhật:</b> mọi điểm hứng được nhân đôi trong 8 giây. Hứng thêm bánh kem khi đang x2 thì thời gian x2 được tính lại từ đầu.</li>
         <li>Đồng hồ +5 giây. Mây giông −20 điểm và làm mất hiệu lực x2.</li>
       </ul>
-      <h3>Giải thưởng</h3>
+      <h3>Xếp hạng và giải thưởng</h3>
       <ul>
-        <li>Mỗi số điện thoại có <b id="ruTurns">3</b> lượt chơi một ngày.</li>
-        <li>Đạt từ <b id="ruTh">300</b> điểm trong một lượt thì được mở 1 hộp quà (tối đa 1 hộp mỗi ngày).</li>
-        <li>Hạn dùng và nơi nhận quà ghi trên mã quà.</li>
-        <li>Top 3 điểm cao nhất của mỗi đơn vị nhận quà tại tiệc kỷ niệm 10 năm.</li>
+        <li>Mỗi số điện thoại có <b id="ruTurns">3</b> lượt chơi. Lượt đã bấm "Bắt đầu" là đã tính, kể cả khi bỏ giữa chừng.</li>
+        <li>Mỗi người được tính <b>lượt có điểm cao nhất</b>. Bằng điểm thì ai đạt điểm đó sớm hơn xếp trên.</li>
+        <li><b>Top <span class="topN">5</span></b> người điểm cao nhất nhận quà, BTC liên hệ qua số điện thoại đã đăng ký.</li>
         <li>Lotus Hospitality có quyền huỷ kết quả nếu phát hiện gian lận.</li>
       </ul>
-      <div class="note">Thể lệ và danh sách quà là bản nháp cho demo. BTC cần chốt thời gian, quà, đối tượng chơi và cho pháp chế duyệt trước khi chạy thật.</div>
+      <div class="note">BTC cần chốt thời gian chương trình và quà cho Top <span class="topN">5</span> trước khi chạy thật.</div>
     </div>
   </section>
 
-  <!-- ================= STAFF ================= -->
-  <section class="screen" id="s-staff">
+  <!-- ================= ADMIN (BTC) ================= -->
+  <section class="screen" id="s-admin">
     <button class="back" data-go="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>Trang chủ</button>
-    <h2 class="h2">Ban tổ chức · Đổi quà</h2>
-    <div id="staffLock" class="card mt12">
-      <label class="field"><span>Mã PIN Ban tổ chức (demo: 1010)</span><input id="pin" inputmode="numeric" maxlength="4" placeholder="••••"></label>
-      <div class="err" id="pinErr"></div>
-      <button class="btn btn-primary mt8" id="btnPin">Mở khoá</button>
+    <h2 class="h2">Ban tổ chức · Kết quả</h2>
+    <div id="admLock" class="card mt12">
+      <label class="field" style="margin-top:0"><span>Mã quản trị (dùng chung với game Kahoot)</span><input id="admKey" type="password" autocomplete="current-password"></label>
+      <div class="err" id="admErr"></div>
+      <button class="btn btn-primary mt8" id="btnAdm">Mở khoá</button>
     </div>
-    <div id="staffPanel" hidden>
+    <div id="admPanel" hidden>
       <div class="card mt12">
-        <label class="field" style="margin-top:0"><span>Nhập mã quà khách đưa</span><input id="vcode" placeholder="LT-TT-XXXX-XXXX" autocapitalize="characters" style="text-transform:uppercase;letter-spacing:.06em"></label>
-        <div class="err" id="vErr"></div>
-        <button class="btn btn-primary mt8" id="btnLookup">Kiểm tra mã</button>
-        <div id="vResult"></div>
-      </div>
-      <div class="card mt12">
-        <b>Kho quà còn lại</b>
-        <table class="stock" id="stockTable"></table>
-      </div>
-      <div class="card mt12">
-        <b>Công cụ demo</b>
-        <p class="small" style="margin:4px 0 10px">Bản demo lưu dữ liệu ngay trên máy này. Bản chạy thật sẽ lưu trên máy chủ.</p>
-        <div class="row">
-          <button class="btn btn-ghost" id="btnAddTurns" style="font-size:14px">Cộng lại lượt hôm nay</button>
-          <button class="btn btn-ghost" id="btnReset" style="font-size:14px;color:#FF8A8A">Xoá dữ liệu demo</button>
+        <div class="adm-row"><span id="admStats" class="small"></span>
+          <span class="adm-actions"><button class="btn btn-ghost btn-sm" id="btnAdmOpen"></button><button class="btn btn-ghost btn-sm" id="btnAdmCsv">Tải Excel (CSV)</button><button class="btn btn-ghost btn-sm" id="btnAdmOut">Thoát</button></span>
         </div>
       </div>
+      <div class="adm-table-wrap mt12"><table class="adm-table" id="admTable"></table></div>
     </div>
   </section>
 </div>
@@ -437,11 +426,23 @@ table.stock td.n{text-align:right;font-variant-numeric:tabular-nums}
   <div class="overlay" id="ovEnd"><div class="countdown" style="font-size:64px;animation:none">Hết giờ!</div></div>
 </section>
 
+<!-- ================= GREETING ================= -->
+<div class="greet-wrap" id="greet" role="dialog" aria-modal="true" aria-labelledby="greetTitle">
+  <div class="greet">
+    <img src="img/lotus-10.png" alt="Lotus Hospitality · 10 Years">
+    <canvas id="greetCake" aria-hidden="true"></canvas>
+    <div class="from" id="greetFrom"></div>
+    <h2 id="greetTitle"></h2>
+    <p id="greetBody"></p>
+    <button class="btn btn-primary" id="btnGreetOk">Vào game</button>
+  </div>
+</div>
+
 <!-- ================= REGISTER SHEET ================= -->
 <div class="sheet-wrap" id="regSheet" role="dialog" aria-modal="true" aria-labelledby="regTitle">
   <div class="sheet">
     <h2 class="h2" id="regTitle">Thông tin người chơi</h2>
-    <p class="sub">Dùng để lưu điểm và gửi mã quà cho bạn.</p>
+    <p class="sub">Dùng để xếp hạng và để BTC liên hệ trao quà cho Top 5.</p>
     <label class="field"><span>Họ và tên</span><input id="fName" autocomplete="name" placeholder="Nguyễn Văn A" maxlength="40"></label>
     <label class="field"><span>Số điện thoại</span><input id="fPhone" inputmode="tel" autocomplete="tel" placeholder="09xx xxx xxx" maxlength="13"></label>
     <label class="field"><span>Bạn thuộc đơn vị nào?</span><select id="fCs"></select></label>
@@ -462,71 +463,118 @@ table.stock td.n{text-align:right;font-variant-numeric:tabular-nums}
 /* ===================== CONFIG ===================== */
 const CONFIG = {
   duration: 45,          // giây mỗi lượt
-  threshold: 300,        // điểm tối thiểu để mở hộp quà (chỉnh sau khi chơi thử nội bộ)
   boostSecs: 8,          // bánh kem: số giây được nhân đôi điểm
   cakesPerRound: 3,      // tối đa số bánh kem rơi trong 1 lượt
-  turnsPerDay: 3,
-  boxesPerDay: 1,
-  staffPin: "1010",
-  storeKey: "lotus-10nam-hung-qua-demo-v1",
+  topN: 5,               // số người nhận quà (giống game Kahoot)
+  storeKey: "lotus-10nam-hung-qua-v2",
+  // Lời chúc hiện ngay khi mở game
+  greeting: {
+    from: "Ban Giải pháp Công nghệ Tập đoàn",
+    title: "Chúc mừng sinh nhật 10 năm Lotus Hospitality!",
+    body: "Chúc Lotus Hospitality cùng các thương hiệu thành viên tiếp tục vững bước và toả sáng trên chặng đường mới.",
+  },
 };
-// Đơn vị của người chơi (dùng cho bảng xếp hạng theo đơn vị). BTC chốt lại danh sách.
+// Bảng xếp hạng lưu trên Supabase (cùng dự án với game Kahoot). Khoá publishable được phép công khai:
+// nó chỉ gọi được các hàm catch_* trong supabase/schema.sql, mọi kiểm tra nằm phía máy chủ.
+const BACKEND = { url: "https://pxabnuplrugmpiagghzk.supabase.co", key: "sb_publishable_VNXxwxVch5c2owtoGAUTyQ_SSYpiqFR" };
+// Đơn vị của người chơi (để lọc bảng xếp hạng). BTC chốt lại danh sách.
 const BRANCHES = [
-  { code: "LH",  name: "Lotus Hospitality · Văn phòng" },
-  { code: "TT",  name: "Tiktak" },
-  { code: "KT",  name: "Kite" },
-  { code: "FX",  name: "Flexi" },
-  { code: "DT",  name: "Diamond Time" },
-  { code: "SR",  name: "Sứ Retreat" },
-  { code: "SM",  name: "Sứ Memoir" },
-  { code: "KH",  name: "Khách hàng · Đối tác" },
+  "Lotus Hospitality · Văn phòng", "Tiktak", "Kite", "Flexi", "Diamond Time", "Sứ Retreat", "Sứ Memoir", "Khách hàng · Đối tác",
 ];
-const ICONS = {
-  drink: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a3 3 0 0 1 0 6h-1"/><path d="M3 8h14v7a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V8Z"/><path d="M7 2v2M11 2v2"/></svg>',
-  room: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V13a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8M2 21h20M4 16c1.5 1 2.5 1 4 0s2.5-1 4 0 2.5 1 4 0 2.5-1 4 0M9 11V8M15 11V8M9 5.5c0-.8.5-1.5 0-2.5M15 5.5c0-.8.5-1.5 0-2.5"/></svg>',
-  daypass: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9a2 2 0 0 0 0 6v3a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-3a2 2 0 0 0 0-6V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v3Z"/><path d="M14 5v2M14 11v2M14 17v2"/></svg>',
-  discount: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 5 5 19"/><circle cx="7" cy="7" r="2.5"/><circle cx="17" cy="17" r="2.5"/></svg>',
-  grand: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2.5 2.9 6 6.6.8-4.9 4.6 1.3 6.5L12 17.2l-5.9 3.2 1.3-6.5L2.5 9.3l6.6-.8L12 2.5Z"/></svg>',
-};
-// Danh sách quà là VÍ DỤ cho bản demo, BTC chốt lại tên quà, số lượng, hạn dùng.
-const PRIZES = [
-  { id: "drink",    name: "1 ly đồ uống",                 desc: "Một ly đồ uống bất kỳ tại quầy bar của các thương hiệu Lotus", weight: 58, stock: 300, exp: "31/01/2027", bg: "rgba(252,209,122,.18)", fg: "#FCD17A" },
-  { id: "daypass",  name: "1 Day Pass Tiktak",            desc: "Một ngày chỗ ngồi linh hoạt tại Tiktak",                       weight: 15, stock: 60,  exp: "31/01/2027", bg: "rgba(110,160,255,.2)",  fg: "#8DB4FF" },
-  { id: "discount", name: "Voucher giảm 10%",             desc: "Áp dụng cho dịch vụ của các thương hiệu thành viên Lotus",     weight: 14, stock: 100, exp: "31/01/2027", bg: "rgba(244,177,131,.2)",  fg: "#FFD2B5" },
-  { id: "room",     name: "Bánh kem sinh nhật mini",      desc: "Nhận tại tiệc kỷ niệm 10 năm Lotus Hospitality",              weight: 10, stock: 40,  exp: "31/12/2026", bg: "rgba(31,157,99,.2)",    fg: "#5AD39A" },
-  { id: "grand",    name: "1 đêm nghỉ dưỡng cho 2 người", desc: "Giải đặc biệt kỷ niệm 10 năm",                                 weight: 3,  stock: 3,   exp: "31/03/2027", bg: "rgba(252,209,122,.24)", fg: "#FCD17A" },
-];
-const prizeById = id => PRIZES.find(p => p.id === id);
+const QS = new URLSearchParams(location.search);
+const MOCK = QS.get("mock") === "1";   // ?mock=1: chạy thử không cần máy chủ (dữ liệu nằm trên máy này)
 
 /* ===================== STORAGE ===================== */
 let mem = null;
-function blank() {
-  return { player: null, cs: null, plays: {}, boxes: {}, best: 0, vouchers: [], stock: Object.fromEntries(PRIZES.map(p => [p.id, p.stock])), board: seedBoard(), muted: false };
-}
+function blank() { return { token: null, me: null, muted: false }; }
 function load() {
-  try { const raw = localStorage.getItem(CONFIG.storeKey); if (raw) return Object.assign(blank(), JSON.parse(raw)); } catch (e) {}
+  try { const raw = localStorage.getItem(CONFIG.storeKey + (MOCK ? "-mock" : "")); if (raw) return Object.assign(blank(), JSON.parse(raw)); } catch (e) {}
   return mem || blank();
 }
-function save() { mem = S; try { localStorage.setItem(CONFIG.storeKey, JSON.stringify(S)); } catch (e) {} }
-function seedBoard() {
-  const names = ["Minh Anh","Quốc Huy","Thu Trang","Đức Thắng","Hà Linh","Tuấn Kiệt","Ngọc Mai","Bảo Long","Phương Thảo","Gia Hân","Khánh Vy","Hoàng Nam","Thanh Tùng","Mỹ Duyên","Việt Anh","Lan Chi","Hải Đăng","Diệu Linh","Trung Kiên","Ánh Dương"];
-  let seed = 7; const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
-  return names.map((n, i) => ({ name: n, phone: "09" + String(Math.floor(rnd() * 1e8)).padStart(8, "0"), cs: BRANCHES[i % BRANCHES.length].code, score: Math.round(160 + rnd() * 470), demo: true }));
-}
+function save() { mem = S; try { localStorage.setItem(CONFIG.storeKey + (MOCK ? "-mock" : ""), JSON.stringify(S)); } catch (e) {} }
 let S = load();
 
 /* ===================== HELPERS ===================== */
 const $ = s => document.querySelector(s);
 const $$ = s => [...document.querySelectorAll(s)];
-const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-const today = () => { const d = new Date(); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); };
-const turnsLeft = () => Math.max(0, CONFIG.turnsPerDay - (S.plays[today()] || 0));
-const boxesLeft = () => Math.max(0, CONFIG.boxesPerDay - (S.boxes[today()] || 0));
-const csName = code => (BRANCHES.find(b => b.code === code) || {}).name || "Chưa chọn đơn vị";
-const csShort = code => csName(code).split("·").pop().trim();
-const maskPhone = p => p ? p.slice(0, 3) + "x xxx " + p.slice(-3) : "";
-const fmtDT = t => { const d = new Date(t); return d.toLocaleDateString("vi-VN") + " " + d.toLocaleTimeString("vi-VN", { hour: "2-digit", minute: "2-digit" }); };
-function toast(msg) { const t = $("#toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove("show"), 2200); }
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const fmtDT = t => { const d = new Date(t); return d.toLocaleDateString("vi-VN") + " " + d.toLocaleTimeString("vi-VN", { hour: "2-digit", minute: "2-digit", second: "2-digit" }); };
+const uuid = () => (crypto.randomUUID ? crypto.randomUUID() : "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c => (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)));
+function toast(msg) { const t = $("#toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove("show"), 2600); }
+
+/* ===================== API ===================== */
+const ERR_TEXT = {
+  NETWORK: "Mất kết nối, bạn kiểm tra mạng rồi thử lại nhé.",
+  CLOSED: "Ban tổ chức đã đóng game.",
+  NO_TURNS: "Bạn đã dùng hết lượt chơi.",
+  NO_PLAYER: "Bạn đăng ký lại giúp BTC nhé.",
+  BAD_INPUT: "Thông tin chưa hợp lệ.",
+  REJECTED: "Điểm lượt này không hợp lệ nên không được tính.",
+  FORBIDDEN: "Sai mã quản trị.",
+};
+class RpcError extends Error { constructor(code, detail) { super(detail || code); this.code = code; } }
+const errText = e => ERR_TEXT[e && e.code] || "Có lỗi xảy ra, bạn thử lại nhé.";
+async function rpc(fn, args, retries = 3) {
+  if (MOCK) return mockRpc(fn, args || {});
+  for (let attempt = 1; ; attempt++) {
+    let res, body;
+    try {
+      res = await fetch(`${BACKEND.url}/rest/v1/rpc/${fn}`, { method: "POST", headers: { "Content-Type": "application/json", apikey: BACKEND.key }, body: JSON.stringify(args || {}) });
+      body = await res.json().catch(() => null);
+    } catch (e) {
+      if (attempt >= retries) throw new RpcError("NETWORK", e.message);
+      await new Promise(r => setTimeout(r, 600 * attempt)); continue;
+    }
+    if (res.ok) return body;
+    const msg = body && body.message;
+    if (ERR_TEXT[msg]) throw new RpcError(msg);
+    if (res.status >= 500 && attempt < retries) { await new Promise(r => setTimeout(r, 600 * attempt)); continue; }
+    throw new RpcError(res.status >= 500 ? "NETWORK" : "SERVER", msg || "HTTP " + res.status);
+  }
+}
+
+/* Bản giả lập các hàm catch_* (chỉ dùng với ?mock=1), theo đúng luật trong supabase/schema.sql. */
+function mockRpc(fn, a) {
+  const K = "lotus-catch-mockdb";
+  let db; try { db = JSON.parse(localStorage.getItem(K)); } catch (e) {}
+  db = db || { open: true, turns: 3, players: [], plays: [] };
+  const put = () => localStorage.setItem(K, JSON.stringify(db));
+  const fail = c => { throw new RpcError(c); };
+  const ranking = () => {
+    const best = {};
+    db.plays.filter(p => p.finished).forEach(p => { const b = best[p.pid]; if (!b || p.score > b.score || (p.score === b.score && p.finished < b.finished)) best[p.pid] = p; });
+    return Object.values(best).sort((x, y) => y.score - x.score || x.finished - y.finished)
+      .map((b, i) => { const pl = db.players.find(p => p.id === b.pid); return { id: pl.id, rank: i + 1, name: pl.name, phone: pl.phone, unit: pl.unit, best: b.score, bestAt: b.finished, plays: db.plays.filter(p => p.pid === pl.id).length }; });
+  };
+  const me = pl => { const r = ranking().find(x => x.id === pl.id); return { name: pl.name, phone: pl.phone, unit: pl.unit, turnsLeft: Math.max(0, db.turns - db.plays.filter(p => p.pid === pl.id).length), best: r ? r.best : null, rank: r ? r.rank : null, players: ranking().length, open: db.open }; };
+  const byToken = t => db.players.find(p => p.token === t);
+  const admin = () => { if (a.p_key !== "test") fail("FORBIDDEN"); };
+  if (fn === "catch_register") {
+    if (!/^0[35789]\d{8}$/.test(a.p_phone || "") || !a.p_name || !a.p_unit) fail("BAD_INPUT");
+    let pl = db.players.find(p => p.phone === a.p_phone);
+    if (pl) Object.assign(pl, { token: a.p_token, name: a.p_name, unit: a.p_unit }); else db.players.push(pl = { id: uuid(), token: a.p_token, name: a.p_name, phone: a.p_phone, unit: a.p_unit });
+    put(); return me(pl);
+  }
+  if (fn === "catch_me") { const pl = byToken(a.p_token); return pl ? me(pl) : null; }
+  if (fn === "catch_start") {
+    if (!db.open) fail("CLOSED"); const pl = byToken(a.p_token); if (!pl) fail("NO_PLAYER");
+    if (db.plays.filter(p => p.pid === pl.id).length >= db.turns) fail("NO_TURNS");
+    const play = { id: uuid(), pid: pl.id, started: Date.now() }; db.plays.push(play); put();
+    return { play: play.id, turnsLeft: me(pl).turnsLeft };
+  }
+  if (fn === "catch_finish") {
+    const pl = byToken(a.p_token), play = db.plays.find(p => p.id === a.p_play && pl && p.pid === pl.id && !p.finished);
+    if (!play) fail("BAD_INPUT");
+    if (a.p_score < 0 || a.p_score % 10 || a.p_score > a.p_logos * 60 || Date.now() - play.started < (QS.get("debug") === "1" ? 0 : 40000)) fail("REJECTED");
+    Object.assign(play, { finished: Date.now(), score: a.p_score }); put(); return me(pl);
+  }
+  if (fn === "catch_board") return ranking().map(r => ({ rank: r.rank, name: r.name, unit: r.unit, best: r.best, phone: r.phone.slice(0, 3) + "x xxx " + r.phone.slice(-3) }));
+  if (fn === "catch_admin_check") return a.p_key === "test";
+  if (fn === "catch_admin_board") { admin(); return { config: { open: db.open, turns: db.turns }, players: db.players.length, rows: ranking() }; }
+  if (fn === "catch_admin_set_open") { admin(); db.open = a.p_open; put(); return db.open; }
+  if (fn === "catch_admin_delete") { admin(); db.players = db.players.filter(p => p.id !== a.p_player); db.plays = db.plays.filter(p => p.pid !== a.p_player); put(); return null; }
+  fail("SERVER");
+}
 
 /* ===================== AUDIO ===================== */
 let actx = null;
@@ -755,43 +803,59 @@ function go(name) {
   $$(".screen").forEach(s => s.classList.remove("active"));
   $("#s-" + name).classList.add("active");
   scrollTo(0, 0);
-  if (name === "home") renderHome();
-  if (name === "wallet") renderWallet();
-  if (name === "board") renderBoard();
-  if (name === "staff") renderStaff();
+  clearInterval(go._poll);
+  if (name === "home") { renderHome(); refreshMe(); }
+  if (name === "board") { renderBoard(); go._poll = setInterval(renderBoard, 15000); }
+  if (name === "admin") { renderAdmin(); go._poll = setInterval(() => admKey && loadAdmin(), 15000); }
+  if (location.hash === "#admin" && name !== "admin") history.replaceState(null, "", location.pathname + location.search);
 }
 document.addEventListener("click", e => { const b = e.target.closest("[data-go]"); if (b) { e.preventDefault(); go(b.dataset.go); } });
+addEventListener("hashchange", () => { if (location.hash === "#admin") go("admin"); });
+
+/* ===================== GREETING ===================== */
+function openGreet() { $("#greet").classList.add("open"); }
+$("#greetFrom").textContent = CONFIG.greeting.from;
+$("#greetTitle").textContent = CONFIG.greeting.title;
+$("#greetBody").textContent = CONFIG.greeting.body;
+$("#btnGreetOk").addEventListener("click", () => { $("#greet").classList.remove("open"); try { sessionStorage.setItem("greeted", "1"); } catch (e) {} });
+$("#btnGreet").addEventListener("click", openGreet);
+(function greetCake() {
+  const c = $("#greetCake"), dpr = Math.min(2, devicePixelRatio || 1); c.width = 120 * dpr; c.height = 110 * dpr;
+  const ctx = c.getContext("2d");
+  (function loop(t) {
+    if ($("#greet").classList.contains("open")) { ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, 120, 110); drawCake(ctx, 60, 66, 34, t / 1000, false); }
+    requestAnimationFrame(loop);
+  })(0);
+})();
 
 /* ===================== HOME ===================== */
 function renderHome() {
-  const cs = S.player ? S.player.cs : S.cs;
-  $("#csChipText").textContent = cs ? csName(cs) : "Chọn đơn vị";
-  $("#stTurns").textContent = turnsLeft() + "/" + CONFIG.turnsPerDay;
-  $("#stBest").textContent = S.best;
-  $("#stBox").textContent = boxesLeft() ? "Còn " + boxesLeft() : "Đã mở";
-  $("#stBox").style.fontSize = boxesLeft() ? "" : "18px";
-  const unused = S.vouchers.filter(v => !v.redeemed).length;
-  $("#walletBadge").hidden = !unused; $("#walletBadge").textContent = unused;
-  const tl = turnsLeft();
-  $("#btnPlay").disabled = tl === 0;
-  $("#btnPlayText").textContent = tl === 0 ? "Hết lượt hôm nay, mai quay lại nhé" : (S.player ? "Chơi ngay" : "Đăng ký và chơi");
-  $("#thLabel").textContent = CONFIG.threshold;
+  const m = S.me;
+  $("#csChipText").textContent = m ? m.name + " · " + m.unit : "Chưa đăng ký";
+  $("#stTurns").textContent = m ? m.turnsLeft : "–";
+  $("#stBest").textContent = m && m.best != null ? m.best : "–";
+  $("#stRank").textContent = m && m.rank ? "#" + m.rank : "–";
+  $("#stRank").parentElement.classList.toggle("in-top", !!(m && m.rank && m.rank <= CONFIG.topN));
+  const out = m && m.turnsLeft <= 0, closed = m && m.open === false;
+  $("#btnPlay").disabled = !!(out || closed);
+  $("#btnPlayText").textContent = closed ? "Ban tổ chức đã đóng game" : out ? "Bạn đã dùng hết lượt chơi" : m ? "Chơi ngay" : "Đăng ký và chơi";
 }
-function renderPrizeStrip() {
-  $("#prizeStrip").innerHTML = PRIZES.map(p => `<div class="pz"><div class="ic" style="background:${p.bg};color:${p.fg}">${ICONS[p.id]}</div>${esc(p.name)}</div>`).join("");
+async function refreshMe() {
+  if (!S.token) return;
+  try { const m = await rpc("catch_me", { p_token: S.token }); if (m) { S.me = m; save(); renderHome(); } } catch (e) {}
 }
-$("#btnPlay").addEventListener("click", () => { if (!S.player) openReg(); else startFlow(); });
+$("#btnPlay").addEventListener("click", () => { if (!S.me) openReg(); else startFlow(); });
 $("#csChip").addEventListener("click", () => openReg(true));
 
 /* ===================== REGISTER ===================== */
 let regEditOnly = false;
 function openReg(editOnly = false) {
-  regEditOnly = editOnly;
-  $("#fCs").innerHTML = BRANCHES.map(b => `<option value="${b.code}">${esc(b.name)}</option>`).join("");
-  $("#fCs").value = (S.player && S.player.cs) || S.cs || BRANCHES[0].code;
-  if (S.player) { $("#fName").value = S.player.name; $("#fPhone").value = S.player.phone; $("#fAgree").checked = true; }
-  $("#regTitle").textContent = editOnly && S.player ? "Đổi đơn vị" : "Thông tin người chơi";
-  $("#btnReg").textContent = editOnly && S.player ? "Lưu" : "Vào chơi";
+  regEditOnly = editOnly && !!S.me;
+  $("#fCs").innerHTML = BRANCHES.map(b => `<option value="${esc(b)}">${esc(b)}</option>`).join("");
+  $("#fCs").value = (S.me && S.me.unit) || BRANCHES[0];
+  if (S.me) { $("#fName").value = S.me.name; $("#fPhone").value = S.me.phone; $("#fAgree").checked = true; }
+  $("#regTitle").textContent = regEditOnly ? "Thông tin của bạn" : "Thông tin người chơi";
+  $("#btnReg").textContent = regEditOnly ? "Lưu" : "Vào chơi";
   $("#regErr").textContent = "";
   $("#regSheet").classList.add("open");
 }
@@ -799,13 +863,19 @@ function closeReg() { $("#regSheet").classList.remove("open"); }
 $("#btnRegCancel").addEventListener("click", closeReg);
 $("#regSheet").addEventListener("click", e => { if (e.target.id === "regSheet") closeReg(); });
 $("#lnkRules").addEventListener("click", e => { e.preventDefault(); closeReg(); go("rules"); });
-$("#btnReg").addEventListener("click", () => {
-  const name = $("#fName").value.trim(), phone = $("#fPhone").value.replace(/[\s.]/g, "").replace(/^\+84/, "0"), cs = $("#fCs").value;
+$("#btnReg").addEventListener("click", async () => {
+  const name = $("#fName").value.trim(), phone = $("#fPhone").value.replace(/[\s.]/g, "").replace(/^\+84/, "0"), unit = $("#fCs").value;
   if (name.length < 2) return ($("#regErr").textContent = "Bạn nhập họ tên giúp BTC nhé.");
   if (!/^0(3|5|7|8|9)\d{8}$/.test(phone)) return ($("#regErr").textContent = "Số điện thoại chưa đúng (10 số, bắt đầu bằng 03, 05, 07, 08 hoặc 09).");
   if (!$("#fAgree").checked) return ($("#regErr").textContent = "Bạn cần đồng ý với thể lệ để tham gia.");
-  S.player = { name, phone, cs }; S.cs = cs; save(); closeReg(); renderHome();
-  if (!regEditOnly) startFlow(); else toast("Đã đổi sang " + csName(cs));
+  const btn = $("#btnReg"); btn.disabled = true; $("#regErr").textContent = "";
+  try {
+    const token = S.token || uuid();
+    const m = await rpc("catch_register", { p_token: token, p_name: name, p_phone: phone, p_unit: unit });
+    S.token = token; S.me = m; save(); closeReg(); renderHome();
+    if (!regEditOnly) startFlow(); else toast("Đã lưu thông tin.");
+  } catch (e) { $("#regErr").textContent = errText(e); }
+  finally { btn.disabled = false; }
 });
 
 /* ===================== GAME ===================== */
@@ -827,8 +897,8 @@ function newGame() {
   resizeGame(); G.sled.x = G.sled.tx = W / 2;
 }
 function startFlow() {
-  if (!S.player) return openReg();
-  if (turnsLeft() <= 0) { toast("Bạn đã hết lượt hôm nay."); return go("home"); }
+  if (!S.me) return openReg();
+  if (S.me.turnsLeft <= 0) { toast(ERR_TEXT.NO_TURNS); return go("home"); }
   $$(".screen").forEach(s => s.classList.remove("active"));
   $("#s-game").classList.add("active");
   newGame(); updateHud(); drawLegend();
@@ -836,9 +906,18 @@ function startFlow() {
   cancelAnimationFrame(rafId); lastT = performance.now(); rafId = requestAnimationFrame(frame);
 }
 $("#btnQuitHowto").addEventListener("click", () => { G = null; go("home"); });
-$("#btnStart").addEventListener("click", () => {
-  // tính lượt khi bấm bắt đầu
-  S.plays[today()] = (S.plays[today()] || 0) + 1; save();
+$("#btnStart").addEventListener("click", async () => {
+  // tính lượt khi bấm bắt đầu: máy chủ trừ lượt và cấp mã lượt chơi
+  const b = $("#btnStart"); if (b.disabled || !G) return; b.disabled = true;
+  try {
+    const r = await rpc("catch_start", { p_token: S.token });
+    G.play = r.play; S.me.turnsLeft = r.turnsLeft; save();
+  } catch (e) {
+    toast(errText(e));
+    if (e.code === "NO_PLAYER") { S.me = null; save(); G = null; go("home"); openReg(); }
+    else if (e.code !== "NETWORK") { G = null; go("home"); }
+    return;
+  } finally { b.disabled = false; }
   $("#ovHowto").classList.remove("open");
   try { actx = actx || new (window.AudioContext || window.webkitAudioContext)(); actx.resume && actx.resume(); } catch (e) {}
   countdown(3);
@@ -1016,87 +1095,47 @@ let lastResult = null;
 function endGame(quit) {
   if (!G || G.state === "over") return;
   G.state = "over"; render();
-  const score = quit ? 0 : G.score;
-  const isBest = score > S.best; if (isBest) S.best = score;
-  if (S.player && score > 0) {
-    const me = S.board.find(b => !b.demo && b.phone === S.player.phone);
-    if (me) { me.score = Math.max(me.score, score); me.cs = S.player.cs; me.name = S.player.name; }
-    else S.board.push({ name: S.player.name, phone: S.player.phone, cs: S.player.cs, score, demo: false });
-  }
-  save();
-  lastResult = { score, isBest, logos: G.logos, cakes: G.cakes, coal: G.coal, quit };
+  lastResult = { score: quit ? 0 : G.score, logos: G.logos, cakes: G.cakes, coal: G.coal, quit, play: G.play, prevBest: S.me ? S.me.best : null, sent: false, error: null };
   if (quit) return showResult();
   SFX.end(); $("#ovEnd").classList.add("open");
-  setTimeout(() => { $("#ovEnd").classList.remove("open"); showResult(); }, 1100);
+  const sending = sendResult();
+  setTimeout(async () => { await sending; $("#ovEnd").classList.remove("open"); showResult(); }, 1100);
+}
+async function sendResult() {
+  const r = lastResult; if (!r || r.quit || r.sent) return;
+  try {
+    const m = await rpc("catch_finish", { p_token: S.token, p_play: r.play, p_score: r.score, p_logos: r.logos, p_cakes: r.cakes, p_storms: r.coal }, 4);
+    S.me = m; save(); r.sent = true; r.error = null;
+  } catch (e) { r.error = e; }
 }
 function showResult() {
-  const r = lastResult; G = null;
+  const r = lastResult, m = S.me; G = null;
   go("result");
-  $("#resCs").textContent = csName(S.player.cs);
+  $("#resCs").textContent = m ? m.unit : "";
   $("#resScore").textContent = r.score;
-  $("#resBest").innerHTML = r.isBest && r.score > 0 ? '<span class="newbest">Kỷ lục mới của bạn!</span>' : `<span class="small">Điểm cao nhất: ${S.best}</span>`;
-  $("#resTh").textContent = CONFIG.threshold;
+  const isBest = r.sent && r.score > 0 && (r.prevBest == null || r.score > r.prevBest);
+  $("#resBest").innerHTML = isBest ? '<span class="newbest">Kỷ lục mới của bạn!</span>' : (m && m.best != null ? `<span class="small">Điểm cao nhất của bạn: ${m.best}</span>` : "");
   $("#rGifts").textContent = r.logos; $("#rCake").textContent = r.cakes; $("#rCoal").textContent = r.coal;
-  $("#resBar").style.width = "0";
-  requestAnimationFrame(() => setTimeout(() => $("#resBar").style.width = Math.min(100, r.score / CONFIG.threshold * 100) + "%", 60));
-  const passed = r.score >= CONFIG.threshold, canBox = passed && boxesLeft() > 0, tl = turnsLeft();
+  const inTop = m && m.rank && m.rank <= CONFIG.topN;
+  $("#resRank").innerHTML = m && m.rank ? `<small>Hạng hiện tại</small><b>#${m.rank}</b><small>trên ${m.players} người chơi</small>` : "";
+  $("#resRank").classList.toggle("in-top", !!inTop);
   let msg;
-  if (r.quit) msg = "Bạn đã bỏ lượt này.";
-  else if (canBox) msg = "Tuyệt! Bạn đã vượt mốc " + CONFIG.threshold + " điểm và được mở 1 hộp quà.";
-  else if (passed) msg = "Bạn vượt mốc rồi, nhưng hôm nay đã mở hộp quà. Điểm vẫn được tính vào bảng xếp hạng.";
-  else msg = "Còn thiếu " + (CONFIG.threshold - r.score) + " điểm nữa là mở được hộp quà. Thử lại nhé!";
+  if (r.quit) msg = "Bạn đã bỏ lượt này, lượt vẫn được tính là đã chơi.";
+  else if (r.error && r.error.code === "REJECTED") msg = errText(r.error);
+  else if (r.error) msg = "Chưa gửi được điểm lên bảng xếp hạng. Bấm \"Gửi lại điểm\" khi có mạng nhé.";
+  else if (inTop) msg = `Bạn đang trong Top ${CONFIG.topN}! Giữ vững phong độ đến khi chương trình kết thúc nhé.`;
+  else msg = `Lọt Top ${CONFIG.topN} là nhận quà. Cố lên!`;
   $("#resMsg").textContent = msg;
-  $("#btnOpenBox").hidden = !canBox;
-  $("#btnReplay").hidden = tl === 0;
-  $("#btnReplay").textContent = "Chơi lại (còn " + tl + " lượt hôm nay)";
-  $("#btnReplay").className = "btn mt12 " + (canBox ? "btn-ghost" : "btn-primary");
-  if (canBox) confetti(40);
+  $("#btnResend").hidden = !(r.error && r.error.code !== "REJECTED");
+  const tl = m ? m.turnsLeft : 0;
+  $("#btnReplay").hidden = tl <= 0;
+  $("#btnReplay").textContent = "Chơi lại (còn " + tl + " lượt)";
+  if (inTop && !r.quit && !r.error) confetti(60);
 }
 $("#btnReplay").addEventListener("click", startFlow);
-$("#btnOpenBox").addEventListener("click", () => { resetGift(); go("gift"); });
-
-/* ===================== GIFT ===================== */
-let giftBusy = false;
-function resetGift() {
-  giftBusy = false;
-  $("#boxes").className = "boxes idle";
-  $$(".gbox").forEach(b => b.className = "gbox");
-  $("#prizeCard").classList.remove("show"); $("#giftActions").hidden = true;
-  $("#giftTitle").textContent = "Chọn 1 hộp quà"; $("#giftSub").textContent = "Mỗi hộp chứa một phần quà ngẫu nhiên của Lotus Hospitality.";
-}
-function drawPrize() {
-  const pool = PRIZES.filter(p => (S.stock[p.id] || 0) > 0);
-  if (!pool.length) return null;
-  let r = Math.random() * pool.reduce((a, p) => a + p.weight, 0);
-  for (const p of pool) if ((r -= p.weight) < 0) return p;
-  return pool[0];
-}
-function genCode(cs) {
-  const A = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; const part = () => Array.from({ length: 4 }, () => A[Math.floor(Math.random() * A.length)]).join("");
-  let c; do { c = "LT-" + cs + "-" + part() + "-" + part(); } while (S.vouchers.some(v => v.code === c));
-  return c;
-}
-$("#boxes").addEventListener("click", e => {
-  const box = e.target.closest(".gbox"); if (!box || giftBusy || boxesLeft() <= 0) return;
-  giftBusy = true;
-  const prize = drawPrize();
-  if (!prize) { toast("Kho quà hôm nay đã hết, bạn quay lại sau nhé."); giftBusy = false; return; }
-  // ghi nhận ngay để tránh tải lại trang lấy thêm quà
-  S.stock[prize.id]--; S.boxes[today()] = (S.boxes[today()] || 0) + 1;
-  const v = { code: genCode(S.player.cs), prizeId: prize.id, at: Date.now(), cs: S.player.cs, name: S.player.name, phone: S.player.phone, redeemed: false };
-  S.vouchers.unshift(v); save();
-  $("#boxes").classList.remove("idle");
-  $$(".gbox").forEach(b => { if (b !== box) b.classList.add("dim"); });
-  box.classList.add("shake"); beep(300, 0.6, "triangle", 0.04, 900);
-  setTimeout(() => {
-    box.classList.remove("shake"); box.classList.add("open"); box.querySelector(".q").textContent = "";
-    SFX.star(); confetti(90);
-    $("#giftTitle").textContent = "Mở quà thành công!"; $("#giftSub").textContent = "";
-    $("#pcIcon").innerHTML = ICONS[prize.id]; $("#pcIcon").style.background = prize.bg; $("#pcIcon").style.color = prize.fg;
-    $("#pcName").textContent = prize.name; $("#pcDesc").textContent = prize.desc;
-    $("#pcCode").textContent = v.code; $("#pcExp").textContent = "Hạn dùng đến " + prize.exp;
-    $("#prizeCard").classList.add("show"); $("#giftActions").hidden = false;
-  }, 950);
+$("#btnResend").addEventListener("click", async () => {
+  const b = $("#btnResend"); b.disabled = true; await sendResult(); b.disabled = false;
+  if (lastResult.sent) { toast("Đã gửi điểm."); showResult(); } else toast(errText(lastResult.error));
 });
 function confetti(n) {
   if (reduceMotion) return;
@@ -1110,91 +1149,83 @@ function confetti(n) {
   }
 }
 
-/* ===================== WALLET ===================== */
-function renderWallet() {
-  const mine = S.player ? S.vouchers.filter(v => v.phone === S.player.phone) : [];
-  if (!mine.length) { $("#walletList").innerHTML = `<div class="empty card">Ví quà đang trống.<br>Đạt ${CONFIG.threshold} điểm trong một lượt để mở hộp quà nhé.</div>`; return; }
-  $("#walletList").innerHTML = mine.map(v => { const p = prizeById(v.prizeId);
-    return `<button class="vitem ${v.redeemed ? "used" : ""}" data-code="${esc(v.code)}"><div class="ic" style="background:${p.bg};color:${p.fg}">${ICONS[p.id]}</div>
-      <div class="meta"><b>${esc(p.name)}</b><span>${esc(v.code)} · HSD ${p.exp}</span></div>
-      <span class="tag ${v.redeemed ? "used" : "ok"}">${v.redeemed ? "Đã nhận" : "Chưa dùng"}</span></button>`; }).join("");
-}
-$("#walletList").addEventListener("click", e => {
-  const b = e.target.closest(".vitem"); if (!b) return;
-  const v = S.vouchers.find(x => x.code === b.dataset.code), p = prizeById(v.prizeId);
-  resetGift(); go("gift");
-  $("#boxes").style.display = "none";
-  $("#giftTitle").textContent = v.redeemed ? "Quà đã nhận" : "Mã quà của bạn"; $("#giftSub").textContent = "";
-  $("#pcIcon").innerHTML = ICONS[p.id]; $("#pcIcon").style.background = p.bg; $("#pcIcon").style.color = p.fg;
-  $("#pcName").textContent = p.name; $("#pcDesc").textContent = p.desc; $("#pcCode").textContent = v.code;
-  $("#pcExp").textContent = v.redeemed ? "Đã nhận lúc " + fmtDT(v.redeemedAt) : "Hạn dùng đến " + p.exp;
-  $("#prizeCard").classList.add("show"); $("#giftActions").hidden = false;
-});
-// hiện lại hộp quà khi rời màn
-const _go = go; go = function (n) { $("#boxes").style.display = ""; _go(n); };
-
 /* ===================== BOARD ===================== */
 let boardTab = "all";
 $("#boardTabs").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; boardTab = b.dataset.tab; $$("#boardTabs button").forEach(x => x.classList.toggle("on", x === b)); renderBoard(); });
-function renderBoard() {
-  const cs = (S.player && S.player.cs) || S.cs || BRANCHES[0].code;
-  $("#tabCs").textContent = csShort(cs);
-  let rows = S.board.slice();
-  if (boardTab === "cs") rows = rows.filter(r => r.cs === cs);
-  rows.sort((a, b) => b.score - a.score);
-  const myPhone = S.player && S.player.phone;
-  const myIdx = rows.findIndex(r => !r.demo && r.phone === myPhone);
-  const top = rows.slice(0, 10);
-  let html = top.map((r, i) => lbRow(r, i, myPhone)).join("");
-  if (myIdx >= 10) html += `<div class="center small">···</div>` + lbRow(rows[myIdx], myIdx, myPhone);
-  if (myIdx < 0 && S.player) html += `<div class="note">Bạn chưa có điểm. Chơi một lượt để lên bảng nhé!</div>`;
-  html += `<p class="small center mt12">Bảng xếp hạng có sẵn tên người chơi mẫu để minh hoạ.</p>`;
-  $("#boardList").innerHTML = html;
-}
-function lbRow(r, i, myPhone) {
-  const me = !r.demo && r.phone === myPhone;
-  return `<div class="lb ${me ? "me" : ""}"><div class="rk ${i < 3 ? "r" + (i + 1) : ""}">${i + 1}</div>
-    <div class="nm"><b>${esc(r.name)}${me ? " (bạn)" : ""}</b><span>${esc(csShort(r.cs))} · ${maskPhone(r.phone)}</span></div><div class="sc">${r.score}</div></div>`;
+async function renderBoard() {
+  const list = $("#boardList"), m = S.me;
+  $("#tabCs").textContent = m ? m.unit.split("·").pop().trim() : "Đơn vị của tôi";
+  $("#tabCs").hidden = !m;
+  if (!list.children.length) list.innerHTML = '<div class="empty card">Đang tải…</div>';
+  let rows;
+  try { rows = await rpc("catch_board"); } catch (e) { list.innerHTML = `<div class="empty card">${esc(errText(e))}</div>`; return; }
+  if (boardTab === "cs" && m) rows = rows.filter(r => r.unit === m.unit);
+  if (!rows.length) { list.innerHTML = '<div class="empty card">Chưa có ai ghi điểm. Bạn là người đầu tiên nhé!</div>'; return; }
+  let html = "", cut = false;
+  rows.forEach(r => {
+    const top = r.rank <= CONFIG.topN, me = m && m.rank === r.rank;
+    if (!top && !cut && boardTab === "all") { cut = true; html += `<div class="top-cut">Top ${CONFIG.topN} nhận quà ở trên</div>`; }
+    html += `<div class="lb ${top ? "top" : ""} ${me ? "me" : ""}"><div class="rk ${r.rank <= 3 ? "r" + r.rank : top ? "rt" : ""}">${r.rank}</div>
+      <div class="nm"><b>${esc(r.name)}${me ? " (bạn)" : ""}</b><span>${esc(r.unit)} · ${esc(r.phone)}</span></div>
+      ${top ? '<span class="tag top">TOP ' + CONFIG.topN + "</span>" : ""}<div class="sc">${r.best}</div></div>`;
+  });
+  list.innerHTML = html;
 }
 
-/* ===================== STAFF ===================== */
-let staffOk = false;
-function renderStaff() {
-  $("#staffLock").hidden = staffOk; $("#staffPanel").hidden = !staffOk;
-  $("#pin").value = ""; $("#pinErr").textContent = ""; $("#vResult").innerHTML = ""; $("#vErr").textContent = "";
-  if (staffOk) renderStock();
+/* ===================== ADMIN (BTC) ===================== */
+let admKey = null, admData = null;
+try { admKey = sessionStorage.getItem("catch-admin-key"); } catch (e) {}
+function renderAdmin() {
+  $("#admLock").hidden = !!admKey; $("#admPanel").hidden = !admKey; $("#admErr").textContent = "";
+  if (admKey) loadAdmin();
 }
-function renderStock() {
-  $("#stockTable").innerHTML = "<tr><th>Quà</th><th style='text-align:right'>Đã phát</th><th style='text-align:right'>Còn lại</th></tr>" +
-    PRIZES.map(p => `<tr><td>${esc(p.name)}</td><td class="n">${p.stock - S.stock[p.id]}</td><td class="n"><b>${S.stock[p.id]}</b> / ${p.stock}</td></tr>`).join("");
+async function loadAdmin() {
+  try { admData = await rpc("catch_admin_board", { p_key: admKey }); }
+  catch (e) { if (e.code === "FORBIDDEN") { admKey = null; try { sessionStorage.removeItem("catch-admin-key"); } catch (x) {} renderAdmin(); } else toast(errText(e)); return; }
+  const d = admData;
+  $("#admStats").textContent = `${d.players} người đăng ký · ${d.rows.length} người có điểm · mỗi người ${d.config.turns} lượt · game đang ${d.config.open ? "MỞ" : "ĐÓNG"}`;
+  $("#btnAdmOpen").textContent = d.config.open ? "Đóng game" : "Mở lại game";
+  $("#admTable").innerHTML = "<tr><th>Hạng</th><th>Họ tên</th><th>SĐT</th><th>Đơn vị</th><th>Điểm</th><th>Lượt</th><th>Đạt lúc</th><th></th></tr>" +
+    (d.rows.length ? d.rows.map(r => `<tr class="${r.rank <= CONFIG.topN ? "top" : ""}"><td><b>${r.rank}</b></td><td>${esc(r.name)}</td><td>${esc(r.phone)}</td><td>${esc(r.unit)}</td><td class="n"><b>${r.best}</b></td><td class="n">${r.plays}</td><td>${fmtDT(r.bestAt)}</td><td><button class="link" data-del="${esc(r.id)}" data-name="${esc(r.name)}">Xoá</button></td></tr>`).join("")
+      : '<tr><td colspan="8" class="center small">Chưa có ai ghi điểm.</td></tr>');
 }
-$("#btnPin").addEventListener("click", () => { if ($("#pin").value === CONFIG.staffPin) { staffOk = true; renderStaff(); } else $("#pinErr").textContent = "Sai mã PIN."; });
-$("#pin").addEventListener("keydown", e => { if (e.key === "Enter") $("#btnPin").click(); });
-$("#vcode").addEventListener("keydown", e => { if (e.key === "Enter") $("#btnLookup").click(); });
-$("#btnLookup").addEventListener("click", () => {
-  const code = $("#vcode").value.trim().toUpperCase(); $("#vErr").textContent = ""; $("#vResult").innerHTML = "";
-  const v = S.vouchers.find(x => x.code === code);
-  if (!v) { $("#vErr").textContent = "Không tìm thấy mã này."; return; }
-  const p = prizeById(v.prizeId);
-  $("#vResult").innerHTML = `<dl class="kv"><dt>Quà</dt><dd>${esc(p.name)}</dd><dt>Khách</dt><dd>${esc(v.name)} · ${maskPhone(v.phone)}</dd>
-    <dt>Nhận tại</dt><dd>${esc(csName(v.cs))}</dd><dt>Ngày mở</dt><dd>${fmtDT(v.at)}</dd><dt>Hạn dùng</dt><dd>${p.exp}</dd>
-    <dt>Trạng thái</dt><dd>${v.redeemed ? '<span class="tag used">Đã trao lúc ' + fmtDT(v.redeemedAt) + "</span>" : '<span class="tag ok">Chưa dùng</span>'}</dd></dl>
-    ${v.redeemed ? "" : '<button class="btn btn-green mt12" id="btnRedeem">Xác nhận đã trao quà</button>'}`;
-  const rb = $("#btnRedeem");
-  if (rb) rb.addEventListener("click", () => { v.redeemed = true; v.redeemedAt = Date.now(); save(); toast("Đã xác nhận trao quà " + v.code); $("#btnLookup").click(); });
+$("#btnAdm").addEventListener("click", async () => {
+  const k = $("#admKey").value; $("#admErr").textContent = "";
+  try { if (!(await rpc("catch_admin_check", { p_key: k }))) return ($("#admErr").textContent = "Sai mã quản trị."); }
+  catch (e) { return ($("#admErr").textContent = errText(e)); }
+  admKey = k; try { sessionStorage.setItem("catch-admin-key", k); } catch (e) {}
+  $("#admKey").value = ""; renderAdmin();
 });
-$("#btnAddTurns").addEventListener("click", () => { S.plays[today()] = 0; S.boxes[today()] = 0; save(); toast("Đã cộng lại lượt chơi và hộp quà hôm nay."); });
-$("#btnReset").addEventListener("click", () => { const keepMute = S.muted; S = blank(); S.muted = keepMute; save(); staffOk = false; toast("Đã xoá dữ liệu demo."); go("home"); });
+$("#admKey").addEventListener("keydown", e => { if (e.key === "Enter") $("#btnAdm").click(); });
+$("#btnAdmOut").addEventListener("click", () => { admKey = null; try { sessionStorage.removeItem("catch-admin-key"); } catch (e) {} renderAdmin(); });
+$("#btnAdmOpen").addEventListener("click", async () => {
+  try { await rpc("catch_admin_set_open", { p_key: admKey, p_open: !admData.config.open }); loadAdmin(); } catch (e) { toast(errText(e)); }
+});
+$("#admTable").addEventListener("click", async e => {
+  const b = e.target.closest("[data-del]"); if (!b) return;
+  if (b.dataset.armed !== "1") { b.dataset.armed = "1"; b.textContent = "Bấm lần nữa để xoá"; setTimeout(() => { b.dataset.armed = ""; b.textContent = "Xoá"; }, 3000); return; }
+  try { await rpc("catch_admin_delete", { p_key: admKey, p_player: b.dataset.del }); toast("Đã xoá " + b.dataset.name); loadAdmin(); } catch (x) { toast(errText(x)); }
+});
+$("#btnAdmCsv").addEventListener("click", () => {
+  if (!admData) return;
+  const q = v => '"' + String(v ?? "").replace(/"/g, '""') + '"';
+  const lines = [["Hạng", "Top " + CONFIG.topN, "Họ tên", "SĐT", "Đơn vị", "Điểm cao nhất", "Số lượt đã chơi", "Đạt điểm lúc"].map(q).join(",")]
+    .concat(admData.rows.map(r => [r.rank, r.rank <= CONFIG.topN ? "x" : "", r.name, "'" + r.phone, r.unit, r.best, r.plays, fmtDT(r.bestAt)].map(q).join(",")));
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob(["﻿" + lines.join("\r\n")], { type: "text/csv;charset=utf-8" }));
+  a.download = "hung-qua-10-nam-ket-qua.csv"; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+});
 
 /* ===================== INIT ===================== */
-const qcs = new URLSearchParams(location.search).get("cs");
-if (qcs && BRANCHES.some(b => b.code === qcs.toUpperCase())) { S.cs = qcs.toUpperCase(); if (S.player) S.player.cs = S.cs; save(); }
-$("#ruTurns").textContent = CONFIG.turnsPerDay; $("#ruTh").textContent = CONFIG.threshold;
-setMuteIcon(); renderPrizeStrip(); renderBrandStrip(); renderHome();
-// ?go=game|result|gift|wallet|board|rules|staff dùng để chụp màn hình kiểm tra
-const qgo = new URLSearchParams(location.search).get("go"); if (qgo && qgo !== "game") go(qgo);
-// ?debug=1: hook cho kiểm thử tự động (ép điểm, kết thúc lượt)
-if (new URLSearchParams(location.search).get("debug") === "1") window.__dbg = { get G() { return G; }, finish(score) { if (G) { G.score = score; G.timeLeft = 0.01; } }, dropCake() { if (G) { G.items.push({ type: "cake", r: 30, x: G.sled.x, y: G.sled.y - 200, vy: 300, rot: 0, vr: 0, sway: 0, bi: 0 }); } } };
+$$(".topN").forEach(el => el.textContent = CONFIG.topN);
+setMuteIcon(); renderBrandStrip(); renderHome(); refreshMe();
+if (location.hash === "#admin") go("admin");
+else { let seen = false; try { seen = sessionStorage.getItem("greeted") === "1"; } catch (e) {} if (!seen) openGreet(); }
+if (MOCK) document.body.insertAdjacentHTML("beforeend", '<div class="mock-badge">CHẠY THỬ · dữ liệu giả lập</div>');
+// ?go=result|board|rules|admin dùng để chụp màn hình kiểm tra
+const qgo = QS.get("go"); if (qgo && qgo !== "game" && $("#s-" + qgo)) go(qgo);
+// ?debug=1: hook cho kiểm thử tự động
+if (QS.get("debug") === "1") window.__dbg = { get G() { return G; }, finish(score) { if (G) { G.score = score; G.logos = Math.max(G.logos, Math.ceil(score / 60)); G.timeLeft = 0.01; } }, dropCake() { if (G) { G.items.push({ type: "cake", r: 30, x: G.sled.x, y: G.sled.y - 200, vy: 300, rot: 0, vr: 0, sway: 0, bi: 0 }); } } };
 })();
 </script>
 </body>
