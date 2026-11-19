@@ -4,7 +4,7 @@ Minigame hứng logo kỷ niệm 10 năm Lotus Hospitality. Mở đầu bằng l
 
 - Logo thương hiệu (Tiktak, Kite, Flexi, Diamond Time, Sứ Retreat, Sứ Memoir) +10, logo Lotus 10 năm +30.
 - Bánh kem sinh nhật: x2 điểm trong 8 giây.
-- Mây giông −20 và mất x2, đồng hồ +5 giây.
+- Mây giông −20 và mất x2. Không có cộng giờ.
 
 Chơi: https://vngroup23.github.io/lotus-hung-qua-10-nam/
 
@@ -12,10 +12,10 @@ Chơi: https://vngroup23.github.io/lotus-hung-qua-10-nam/
 
 ## Xếp hạng và giải thưởng
 
-Giống game Kahoot: mỗi người tính lượt có điểm cao nhất (3 lượt mỗi số điện thoại), Top 5 nhận quà. Bảng xếp hạng hiện toàn bộ người chơi và làm nổi bật Top 5.
+Giống game Kahoot: người chơi đăng ký vào phòng chờ, BTC bấm "Bắt đầu" ở `#admin`, mọi điện thoại đếm ngược 10 giây rồi cả phòng chơi chung 45 giây theo giờ máy chủ và hết giờ cùng lúc. Mỗi số điện thoại 1 lượt. Hết giờ hiện bảng xếp hạng toàn bộ người chơi, Top 5 được làm nổi bật và nhận quà. Nút "Vòng mới" xoá điểm để chơi lại (dùng khi chơi thử).
 
 Điểm lưu trên Supabase (cùng dự án với game Kahoot). Schema ở `supabase/schema.sql`, áp bằng
 `node ../../../Game/scripts/db.mjs apply supabase/schema.sql`. Nếu chạy lại schema của game Kahoot thì phải áp lại file này.
 
-- BTC: `#admin`, đăng nhập bằng mã quản trị của game Kahoot. Có danh sách đầy đủ kèm SĐT, nút đóng/mở game, xoá người gian lận và tải CSV.
+- BTC: `#admin`, đăng nhập bằng mã quản trị của game Kahoot. Có nút Bắt đầu / Vòng mới, danh sách đầy đủ kèm SĐT, xoá người gian lận và tải CSV.
 - Chạy thử không cần máy chủ: thêm `?mock=1` vào link (mã BTC giả lập: `test`).

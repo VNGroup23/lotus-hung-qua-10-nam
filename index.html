@@ -115,6 +115,9 @@ h1,h2,h3{font-family:var(--display);margin:0;line-height:1.1;letter-spacing:-.01
 .boost .bar i{display:block;height:100%;background:linear-gradient(90deg,#F4B183,#FCD17A);width:100%}
 .legend .wide{grid-column:1/-1;border-color:rgba(252,209,122,.55);background:linear-gradient(90deg,rgba(244,177,131,.16),rgba(252,209,122,.12))}
 .legend .x2{color:#FFD2B5}
+.legend .wide-plain{grid-column:1/-1}
+.howto-count{margin-top:14px;padding:12px;border-radius:14px;text-align:center;font-weight:600;color:var(--muted);background:rgba(252,209,122,.1);border:1px solid rgba(252,209,122,.35)}
+.howto-count b{font-family:var(--display);font-size:28px;color:var(--gold);margin:0 4px}
 .overlay{position:absolute;inset:0;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(8,14,26,.72);backdrop-filter:blur(3px);z-index:5}
 .overlay.open{display:flex}
 .howto{max-width:380px;width:100%}
@@ -217,6 +220,12 @@ table.stock td.n{text-align:right;font-variant-numeric:tabular-nums}
 .prize-top{display:flex;align-items:center;gap:14px}
 .prize-top .crown{flex:0 0 auto;font-family:var(--display);font-weight:800;font-size:20px;line-height:1;padding:12px;border-radius:14px;background:linear-gradient(180deg,#FFE7AE,#D9A443);color:#1A1209}
 .stat.in-top{border-color:rgba(252,209,122,.7);background:rgba(252,209,122,.14)}
+.mine{border-color:rgba(252,209,122,.45);background:linear-gradient(180deg,rgba(252,209,122,.12),rgba(255,248,236,.04))}
+.mine-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.mine-score{font-family:var(--display);font-size:56px;font-weight:800;line-height:1;background:linear-gradient(180deg,#FFF8EC,#FCD17A);-webkit-background-clip:text;background-clip:text;color:transparent}
+.mine-msg{font-weight:600;margin-top:8px}
+.upper{letter-spacing:.12em;text-transform:uppercase;font-weight:600}
+.mine .row .btn{flex:1}
 .rank-big{text-align:center;margin-bottom:8px}
 .rank-big:empty{display:none}
 .rank-big b{display:block;font-family:var(--display);font-size:48px;line-height:1.05;color:var(--ink)}
@@ -240,6 +249,9 @@ table.stock td.n{text-align:right;font-variant-numeric:tabular-nums}
 .adm-table tr.top td{background:rgba(252,209,122,.12)}
 .adm-table tr.top td:first-child{box-shadow:inset 3px 0 0 var(--gold)}
 body:has(#s-admin.active) #app{max-width:980px}
+.lobby-status{text-align:center;color:var(--muted);font-size:13.5px;margin:10px 0 0;min-height:1.4em}
+.lobby-status.live{color:var(--gold);font-weight:700}
+.adm-state{font-size:15px;margin-bottom:10px}
 .mock-badge{position:fixed;left:8px;bottom:8px;z-index:90;padding:4px 8px;border-radius:8px;background:#F4B183;color:#1A1209;font-size:11px;font-weight:700}
 .toast{position:fixed;left:50%;bottom:max(24px,env(safe-area-inset-bottom));transform:translate(-50%,30px);opacity:0;z-index:80;padding:11px 16px;border-radius:12px;background:#fff;color:#111;font-weight:600;font-size:14px;box-shadow:0 10px 30px rgba(0,0,0,.35);transition:all .25s;max-width:90vw;text-align:center}
 .toast.show{opacity:1;transform:translate(-50%,0)}
@@ -263,12 +275,12 @@ body:has(#s-admin.active) #app{max-width:980px}
     <div class="hero">
       <span class="eyebrow">Kỷ niệm 10 năm Lotus Hospitality</span>
       <h1 class="title-xl">Hứng quà <span class="accent">10 năm</span></h1>
-      <p class="sub">Hứng logo Lotus và các thương hiệu trong 45 giây.<br>Hứng được <b>bánh kem</b> thì điểm nhân đôi.<br><b>Top <span class="topN">5</span></b> điểm cao nhất nhận quà.</p>
+      <p class="sub">Hứng logo Lotus và các thương hiệu trong 45 giây.<br>Hứng được <b>bánh kem</b> thì điểm nhân đôi.<br>BTC bấm bắt đầu, cả phòng chơi cùng lúc. <b>Top <span class="topN">5</span></b> điểm cao nhất nhận quà.</p>
       <canvas id="heroCanvas" aria-hidden="true"></canvas>
     </div>
 
     <div class="stats">
-      <div class="stat"><div class="v" id="stTurns">–</div><div class="l">Lượt còn lại</div></div>
+      <div class="stat"><div class="v" id="stTurns">–</div><div class="l">Người đã vào</div></div>
       <div class="stat"><div class="v" id="stBest">–</div><div class="l">Điểm cao nhất</div></div>
       <div class="stat"><div class="v" id="stRank">–</div><div class="l">Hạng của bạn</div></div>
     </div>
@@ -277,6 +289,7 @@ body:has(#s-admin.active) #app{max-width:980px}
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.14v13.72a1 1 0 0 0 1.53.85l10.6-6.86a1 1 0 0 0 0-1.7L9.53 4.29A1 1 0 0 0 8 5.14Z"/></svg>
       <span id="btnPlayText">Đăng ký và chơi</span>
     </button>
+    <p class="lobby-status" id="lobbyStatus"></p>
 
     <div class="menu menu-2">
       <button data-go="board">
@@ -302,34 +315,25 @@ body:has(#s-admin.active) #app{max-width:980px}
     </div>
   </section>
 
-  <!-- ================= RESULT ================= -->
-  <section class="screen" id="s-result">
-    <div class="topbar"><img class="logo" src="img/lotus-10.png" alt="Lotus 10 Years"><span class="chip" id="resCs"></span></div>
-    <div class="center mt12">
-      <div class="small" style="letter-spacing:.12em;text-transform:uppercase;font-weight:600">Điểm lượt này</div>
-      <div class="result-score" id="resScore">0</div>
-      <div id="resBest"></div>
-    </div>
-    <div class="card mt20">
-      <div class="rank-big" id="resRank"></div>
-      <div id="resMsg" style="font-weight:600;text-align:center"></div>
+  <!-- ================= BOARD ================= -->
+  <section class="screen" id="s-board">
+    <button class="back" data-go="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>Trang chủ</button>
+    <h2 class="h2" id="boardTitle">Bảng xếp hạng</h2>
+    <div class="card mine mt12" id="boardMine" hidden>
+      <div class="mine-head">
+        <div><div class="small upper">Điểm lượt này</div><div class="mine-score" id="resScore">0</div><div id="resBest"></div></div>
+        <div class="rank-big" id="resRank"></div>
+      </div>
+      <div id="resMsg" class="mine-msg"></div>
       <div class="res-stats">
         <div class="stat"><div class="v" id="rGifts">0</div><div class="l">Logo hứng được</div></div>
         <div class="stat"><div class="v" id="rCake">0</div><div class="l">Bánh kem x2</div></div>
         <div class="stat"><div class="v" id="rCoal">0</div><div class="l">Dính mây giông</div></div>
       </div>
+      <button class="btn btn-green mt12" id="btnResend" hidden>Gửi lại điểm</button>
+      <div class="row mt12"><button class="btn btn-primary" id="btnReplay">Chơi lại</button><button class="btn btn-ghost" data-go="home">Trang chủ</button></div>
     </div>
-    <button class="btn btn-green mt16" id="btnResend" hidden>Gửi lại điểm</button>
-    <button class="btn btn-primary mt16" id="btnReplay">Chơi lại</button>
-    <button class="btn btn-ghost mt12" data-go="board">Xem bảng xếp hạng</button>
-    <button class="btn btn-ghost mt12" data-go="home">Về trang chủ</button>
-  </section>
-
-  <!-- ================= BOARD ================= -->
-  <section class="screen" id="s-board">
-    <button class="back" data-go="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>Trang chủ</button>
-    <h2 class="h2">Bảng xếp hạng</h2>
-    <p class="sub">Toàn bộ người chơi, xếp theo điểm cao nhất của mỗi người. <b class="gold">Top <span class="topN">5</span></b> nhận quà.</p>
+    <p class="sub mt12">Toàn bộ người chơi, xếp theo điểm cao nhất của mỗi người. <b class="gold">Top <span class="topN">5</span></b> nhận quà.</p>
     <div class="tabs" id="boardTabs">
       <button class="on" data-tab="all">Tất cả</button>
       <button data-tab="cs" id="tabCs">Đơn vị của tôi</button>
@@ -349,15 +353,17 @@ body:has(#s-admin.active) #app{max-width:980px}
       </ul>
       <h3>Cách chơi</h3>
       <ul>
-        <li>Mỗi lượt 45 giây. Kéo ngón tay (hoặc phím ← →) để di chuyển khay hứng quà.</li>
+        <li>Vòng chơi 45 giây. Kéo ngón tay (hoặc phím ← →) để di chuyển khay hứng quà.</li>
         <li>Logo thương hiệu (Tiktak, Kite, Flexi, Diamond Time, Sứ Retreat, Sứ Memoir) +10, logo Lotus 10 năm +30.</li>
         <li><b>Bánh kem sinh nhật:</b> mọi điểm hứng được nhân đôi trong 8 giây. Hứng thêm bánh kem khi đang x2 thì thời gian x2 được tính lại từ đầu.</li>
-        <li>Đồng hồ +5 giây. Mây giông −20 điểm và làm mất hiệu lực x2.</li>
+        <li>Mây giông −20 điểm và làm mất hiệu lực x2.</li>
+        <li>Không có cộng thêm giờ: lượt nào cũng đúng 45 giây. Hết giờ là hiện bảng xếp hạng.</li>
       </ul>
       <h3>Xếp hạng và giải thưởng</h3>
       <ul>
-        <li>Mỗi số điện thoại có <b id="ruTurns">3</b> lượt chơi. Lượt đã bấm "Bắt đầu" là đã tính, kể cả khi bỏ giữa chừng.</li>
-        <li>Mỗi người được tính <b>lượt có điểm cao nhất</b>. Bằng điểm thì ai đạt điểm đó sớm hơn xếp trên.</li>
+        <li>Đăng ký trước để vào phòng chờ. Khi BTC bấm bắt đầu, mọi điện thoại cùng đếm ngược và cả phòng chơi chung 45 giây, hết giờ cùng lúc.</li>
+        <li>Mỗi số điện thoại chơi <b>1 lượt</b>. Vào muộn thì chỉ còn số giây còn lại của vòng.</li>
+        <li>Hết giờ là hiện bảng xếp hạng. Bằng điểm thì ai gửi kết quả sớm hơn xếp trên.</li>
         <li><b>Top <span class="topN">5</span></b> người điểm cao nhất nhận quà, BTC liên hệ qua số điện thoại đã đăng ký.</li>
         <li>Lotus Hospitality có quyền huỷ kết quả nếu phát hiện gian lận.</li>
       </ul>
@@ -376,8 +382,9 @@ body:has(#s-admin.active) #app{max-width:980px}
     </div>
     <div id="admPanel" hidden>
       <div class="card mt12">
+        <div class="adm-state" id="admState"></div>
         <div class="adm-row"><span id="admStats" class="small"></span>
-          <span class="adm-actions"><button class="btn btn-ghost btn-sm" id="btnAdmOpen"></button><button class="btn btn-ghost btn-sm" id="btnAdmCsv">Tải Excel (CSV)</button><button class="btn btn-ghost btn-sm" id="btnAdmOut">Thoát</button></span>
+          <span class="adm-actions"><button class="btn btn-primary btn-sm" id="btnAdmStart">Bắt đầu (đếm ngược 10 giây)</button><button class="btn btn-ghost btn-sm" id="btnAdmReset">Vòng mới (xoá điểm)</button><button class="btn btn-ghost btn-sm" id="btnAdmCsv">Tải Excel (CSV)</button><button class="btn btn-ghost btn-sm" id="btnAdmOut">Thoát</button></span>
         </div>
       </div>
       <div class="adm-table-wrap mt12"><table class="adm-table" id="admTable"></table></div>
@@ -393,7 +400,6 @@ body:has(#s-admin.active) #app{max-width:980px}
     <div class="score"><span id="hudScore">0</span><small>ĐIỂM</small></div>
     <div class="right">
       <button class="pill" id="btnMute" aria-label="Tắt/bật âm thanh"><svg id="icoSound" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg></button>
-      <button class="pill" id="btnPause" aria-label="Tạm dừng"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg></button>
     </div>
   </div>
   <div class="boost" id="hudBoost"><span id="hudBoostT">x2 ĐIỂM · 8s</span><span class="bar"><i id="hudBoostBar"></i></span></div>
@@ -406,23 +412,13 @@ body:has(#s-admin.active) #app{max-width:980px}
         <div class="wide"><canvas data-item="cake"></canvas><span><b class="x2">x2 điểm trong 8 giây</b>Bánh kem sinh nhật 10 năm</span></div>
         <div><canvas data-item="brand"></canvas><span><b class="pos">+10</b>Logo thương hiệu</span></div>
         <div><canvas data-item="lotus"></canvas><span><b class="pos">+30</b>Logo Lotus 10 năm</span></div>
-        <div><canvas data-item="clock"></canvas><span><b class="pos">+5 giây</b>Đồng hồ</span></div>
-        <div><canvas data-item="storm"></canvas><span><b class="neg">−20</b>Mây giông</span></div>
+        <div class="wide-plain"><canvas data-item="storm"></canvas><span><b class="neg">−20</b>Mây giông</span></div>
       </div>
       <p class="small center mt12">Mây giông còn làm mất hiệu lực x2 của bánh kem.</p>
-      <button class="btn btn-primary mt12" id="btnStart">Bắt đầu</button>
-      <button class="btn btn-ghost mt8" id="btnQuitHowto">Để sau</button>
+      <div class="howto-count" id="howtoCount">Đang vào phòng…</div>
     </div>
   </div>
   <div class="overlay" id="ovCount"><div class="countdown" id="countNum">3</div></div>
-  <div class="overlay" id="ovPause">
-    <div class="howto card center" style="background:var(--bg2)">
-      <h2 class="h2">Tạm dừng</h2>
-      <button class="btn btn-primary mt16" id="btnResume">Chơi tiếp</button>
-      <button class="btn btn-ghost mt8" id="btnQuit">Bỏ lượt này</button>
-      <p class="small mt8">Bỏ lượt vẫn bị tính là đã dùng 1 lượt.</p>
-    </div>
-  </div>
   <div class="overlay" id="ovEnd"><div class="countdown" style="font-size:64px;animation:none">Hết giờ!</div></div>
 </section>
 
@@ -506,7 +502,10 @@ function toast(msg) { const t = $("#toast"); t.textContent = msg; t.classList.ad
 const ERR_TEXT = {
   NETWORK: "Mất kết nối, bạn kiểm tra mạng rồi thử lại nhé.",
   CLOSED: "Ban tổ chức đã đóng game.",
-  NO_TURNS: "Bạn đã dùng hết lượt chơi.",
+  NOT_STARTED: "Ban tổ chức chưa bắt đầu, bạn chờ chút nhé.",
+  ENDED: "Vòng chơi đã kết thúc.",
+  BAD_STATE: "Vòng chơi đang diễn ra hoặc đã xong. Bấm \"Vòng mới\" trước khi bắt đầu lại.",
+  NO_TURNS: "Bạn đã chơi vòng này rồi.",
   NO_PLAYER: "Bạn đăng ký lại giúp BTC nhé.",
   BAD_INPUT: "Thông tin chưa hợp lệ.",
   REJECTED: "Điểm lượt này không hợp lệ nên không được tính.",
@@ -533,11 +532,37 @@ async function rpc(fn, args, retries = 3) {
   }
 }
 
+/* ---------- Vòng chơi chung: trạng thái và giờ máy chủ ---------- */
+let ST = null, clockOffset = 0;
+const nowS = () => Date.now() + clockOffset;
+function setClock(st, t0) { if (st && st.serverNow) clockOffset = st.serverNow - (t0 + Date.now()) / 2; }
+async function pollState() {
+  try {
+    const t0 = Date.now(), st = await rpc("catch_state", {}, 1);
+    setClock(st, t0); const prev = ST && ST.status; ST = st;
+    if (prev && prev !== st.status && st.status === "waiting") refreshMe();   // BTC mở vòng mới
+    onState();
+  } catch (e) {}
+  clearTimeout(pollState._t);
+  const busy = ST && (ST.status === "countdown" || ST.status === "running");
+  pollState._t = setTimeout(pollState, busy ? 1500 : 3000);
+}
+function onState() {
+  const active = (sel) => $(sel).classList.contains("active");
+  if (active("#s-home")) renderHome();
+  if (active("#s-admin")) renderAdminState();
+  // vòng chơi đã bắt đầu đếm ngược: ai đã đăng ký và chưa chơi thì tự vào game
+  if (!G && S.me && S.me.turnsLeft > 0 && ST && (ST.status === "countdown" || ST.status === "running") && (active("#s-home") || active("#s-rules"))
+      && !$("#regSheet").classList.contains("open") && !$("#greet").classList.contains("open")) enterGame();
+}
+
 /* Bản giả lập các hàm catch_* (chỉ dùng với ?mock=1), theo đúng luật trong supabase/schema.sql. */
 function mockRpc(fn, a) {
   const K = "lotus-catch-mockdb";
   let db; try { db = JSON.parse(localStorage.getItem(K)); } catch (e) {}
-  db = db || { open: true, turns: 3, players: [], plays: [] };
+  db = db || { turns: 1, duration: 45, startsAt: null, players: [], plays: [] };
+  const status = () => !db.startsAt ? "waiting" : Date.now() < db.startsAt ? "countdown" : Date.now() < db.startsAt + db.duration * 1000 ? "running" : "ended";
+  const state = () => ({ status: status(), startsAt: db.startsAt, serverNow: Date.now(), duration: db.duration, players: db.players.length, played: db.plays.filter(p => p.finished).length });
   const put = () => localStorage.setItem(K, JSON.stringify(db));
   const fail = c => { throw new RpcError(c); };
   const ranking = () => {
@@ -546,7 +571,7 @@ function mockRpc(fn, a) {
     return Object.values(best).sort((x, y) => y.score - x.score || x.finished - y.finished)
       .map((b, i) => { const pl = db.players.find(p => p.id === b.pid); return { id: pl.id, rank: i + 1, name: pl.name, phone: pl.phone, unit: pl.unit, best: b.score, bestAt: b.finished, plays: db.plays.filter(p => p.pid === pl.id).length }; });
   };
-  const me = pl => { const r = ranking().find(x => x.id === pl.id); return { name: pl.name, phone: pl.phone, unit: pl.unit, turnsLeft: Math.max(0, db.turns - db.plays.filter(p => p.pid === pl.id).length), best: r ? r.best : null, rank: r ? r.rank : null, players: ranking().length, open: db.open }; };
+  const me = pl => { const r = ranking().find(x => x.id === pl.id); return { name: pl.name, phone: pl.phone, unit: pl.unit, turnsLeft: Math.max(0, db.turns - db.plays.filter(p => p.pid === pl.id).length), best: r ? r.best : null, rank: r ? r.rank : null, players: ranking().length }; };
   const byToken = t => db.players.find(p => p.token === t);
   const admin = () => { if (a.p_key !== "test") fail("FORBIDDEN"); };
   if (fn === "catch_register") {
@@ -556,22 +581,26 @@ function mockRpc(fn, a) {
     put(); return me(pl);
   }
   if (fn === "catch_me") { const pl = byToken(a.p_token); return pl ? me(pl) : null; }
+  if (fn === "catch_state") return state();
   if (fn === "catch_start") {
-    if (!db.open) fail("CLOSED"); const pl = byToken(a.p_token); if (!pl) fail("NO_PLAYER");
+    if (!db.startsAt || Date.now() < db.startsAt - 20000) fail("NOT_STARTED");
+    if (status() === "ended") fail("ENDED");
+    const pl = byToken(a.p_token); if (!pl) fail("NO_PLAYER");
     if (db.plays.filter(p => p.pid === pl.id).length >= db.turns) fail("NO_TURNS");
     const play = { id: uuid(), pid: pl.id, started: Date.now() }; db.plays.push(play); put();
-    return { play: play.id, turnsLeft: me(pl).turnsLeft };
+    return { play: play.id, turnsLeft: me(pl).turnsLeft, state: state() };
   }
   if (fn === "catch_finish") {
     const pl = byToken(a.p_token), play = db.plays.find(p => p.id === a.p_play && pl && p.pid === pl.id && !p.finished);
     if (!play) fail("BAD_INPUT");
-    if (a.p_score < 0 || a.p_score % 10 || a.p_score > a.p_logos * 60 || Date.now() - play.started < (QS.get("debug") === "1" ? 0 : 40000)) fail("REJECTED");
+    if (a.p_score < 0 || a.p_score % 10 || a.p_score > a.p_logos * 60 || Date.now() < db.startsAt + (db.duration - 5) * 1000) fail("REJECTED");
     Object.assign(play, { finished: Date.now(), score: a.p_score }); put(); return me(pl);
   }
   if (fn === "catch_board") return ranking().map(r => ({ rank: r.rank, name: r.name, unit: r.unit, best: r.best, phone: r.phone.slice(0, 3) + "x xxx " + r.phone.slice(-3) }));
   if (fn === "catch_admin_check") return a.p_key === "test";
-  if (fn === "catch_admin_board") { admin(); return { config: { open: db.open, turns: db.turns }, players: db.players.length, rows: ranking() }; }
-  if (fn === "catch_admin_set_open") { admin(); db.open = a.p_open; put(); return db.open; }
+  if (fn === "catch_admin_board") { admin(); return { config: { turns: db.turns, duration: db.duration }, state: state(), players: db.players.length, rows: ranking() }; }
+  if (fn === "catch_admin_start") { admin(); if (status() !== "waiting") fail("BAD_STATE"); db.startsAt = Date.now() + (a.p_delay || 10) * 1000; put(); return state(); }
+  if (fn === "catch_admin_reset") { admin(); db.plays = []; db.startsAt = null; put(); return state(); }
   if (fn === "catch_admin_delete") { admin(); db.players = db.players.filter(p => p.id !== a.p_player); db.plays = db.plays.filter(p => p.pid !== a.p_player); put(); return null; }
   fail("SERVER");
 }
@@ -805,8 +834,12 @@ function go(name) {
   scrollTo(0, 0);
   clearInterval(go._poll);
   if (name === "home") { renderHome(); refreshMe(); }
-  if (name === "board") { renderBoard(); go._poll = setInterval(renderBoard, 15000); }
-  if (name === "admin") { renderAdmin(); go._poll = setInterval(() => admKey && loadAdmin(), 15000); }
+  if (name === "board") {
+    const mine = showMine; showMine = false;
+    $("#boardMine").hidden = !mine; $("#boardTitle").textContent = mine ? "Hết giờ! Bảng xếp hạng" : "Bảng xếp hạng";
+    renderBoard(); go._poll = setInterval(renderBoard, mine ? 5000 : 15000);
+  }
+  if (name === "admin") { renderAdmin(); go._poll = setInterval(() => { if (admKey) { const busy = ST && (ST.status === "countdown" || ST.status === "running"); go._n = (go._n || 0) + 1; if (busy ? go._n % 2 === 0 : go._n % 5 === 0) loadAdmin(); renderAdminState(); } }, 1000); }
   if (location.hash === "#admin" && name !== "admin") history.replaceState(null, "", location.pathname + location.search);
 }
 document.addEventListener("click", e => { const b = e.target.closest("[data-go]"); if (b) { e.preventDefault(); go(b.dataset.go); } });
@@ -832,19 +865,27 @@ $("#btnGreet").addEventListener("click", openGreet);
 function renderHome() {
   const m = S.me;
   $("#csChipText").textContent = m ? m.name + " · " + m.unit : "Chưa đăng ký";
-  $("#stTurns").textContent = m ? m.turnsLeft : "–";
+  $("#stTurns").textContent = ST ? ST.players : "–";
   $("#stBest").textContent = m && m.best != null ? m.best : "–";
   $("#stRank").textContent = m && m.rank ? "#" + m.rank : "–";
   $("#stRank").parentElement.classList.toggle("in-top", !!(m && m.rank && m.rank <= CONFIG.topN));
-  const out = m && m.turnsLeft <= 0, closed = m && m.open === false;
-  $("#btnPlay").disabled = !!(out || closed);
-  $("#btnPlayText").textContent = closed ? "Ban tổ chức đã đóng game" : out ? "Bạn đã dùng hết lượt chơi" : m ? "Chơi ngay" : "Đăng ký và chơi";
+  const st = ST ? ST.status : "waiting", played = m && m.turnsLeft <= 0;
+  const left = ST && ST.startsAt ? Math.ceil((ST.startsAt - nowS()) / 1000) : 0;
+  let btn, line, dis = false;
+  if (!m) { btn = "Đăng ký để vào phòng"; line = st === "waiting" ? "Đăng ký trước, BTC bấm bắt đầu là cả phòng cùng chơi." : st === "ended" ? "Vòng chơi đã kết thúc." : "Vòng chơi đang diễn ra, đăng ký là vào chơi ngay!"; }
+  else if (st === "waiting") { btn = "Đang chờ BTC bắt đầu…"; dis = true; line = "Bạn đã vào phòng chờ. Giữ màn hình này, game sẽ tự mở khi BTC bấm bắt đầu."; }
+  else if ((st === "countdown" || st === "running") && !played) { btn = "Vào chơi ngay"; line = st === "countdown" ? "Bắt đầu sau " + Math.max(0, left) + " giây" : "Đang chơi!"; }
+  else { btn = "Xem bảng xếp hạng"; line = st === "ended" ? "Vòng chơi đã kết thúc." : "Bạn đã chơi vòng này. Chờ hết giờ để xem kết quả chung nhé."; }
+  $("#btnPlay").disabled = dis;
+  $("#btnPlayText").textContent = btn;
+  $("#lobbyStatus").textContent = line;
+  $("#lobbyStatus").classList.toggle("live", st === "countdown" || st === "running");
 }
 async function refreshMe() {
   if (!S.token) return;
   try { const m = await rpc("catch_me", { p_token: S.token }); if (m) { S.me = m; save(); renderHome(); } } catch (e) {}
 }
-$("#btnPlay").addEventListener("click", () => { if (!S.me) openReg(); else startFlow(); });
+$("#btnPlay").addEventListener("click", () => { if (!S.me) openReg(); else if (S.me.turnsLeft <= 0 || (ST && ST.status === "ended")) go("board"); else startFlow(); });
 $("#csChip").addEventListener("click", () => openReg(true));
 
 /* ===================== REGISTER ===================== */
@@ -873,7 +914,9 @@ $("#btnReg").addEventListener("click", async () => {
     const token = S.token || uuid();
     const m = await rpc("catch_register", { p_token: token, p_name: name, p_phone: phone, p_unit: unit });
     S.token = token; S.me = m; save(); closeReg(); renderHome();
-    if (!regEditOnly) startFlow(); else toast("Đã lưu thông tin.");
+    if (regEditOnly) toast("Đã lưu thông tin.");
+    else if (ST && (ST.status === "countdown" || ST.status === "running") && m.turnsLeft > 0) enterGame();
+    else toast("Đã vào phòng chờ!");
   } catch (e) { $("#regErr").textContent = errText(e); }
   finally { btn.disabled = false; }
 });
@@ -896,46 +939,58 @@ function newGame() {
     snow: Array.from({ length: 60 }, () => ({ x: Math.random(), y: Math.random(), r: 0.6 + Math.random() * 2, v: 0.03 + Math.random() * 0.06, p: Math.random() * 6 })), lastTick: CONFIG.duration };
   resizeGame(); G.sled.x = G.sled.tx = W / 2;
 }
+// Vào vòng chơi chung: máy chủ cấp mã lượt và giờ bắt đầu; mọi máy đếm theo giờ máy chủ nên hết giờ cùng lúc.
 function startFlow() {
   if (!S.me) return openReg();
-  if (S.me.turnsLeft <= 0) { toast(ERR_TEXT.NO_TURNS); return go("home"); }
-  $$(".screen").forEach(s => s.classList.remove("active"));
+  const st = ST && ST.status;
+  if (st === "waiting" || !st) { toast("Ban tổ chức chưa bắt đầu, bạn chờ chút nhé."); return go("home"); }
+  if (st === "ended" || S.me.turnsLeft <= 0) return go("board");
+  enterGame();
+}
+let entering = false;
+async function enterGame() {
+  if (entering || G) return;
+  entering = true;
+  $$(".screen").forEach(el => el.classList.remove("active"));
   $("#s-game").classList.add("active");
   newGame(); updateHud(); drawLegend();
-  $("#ovHowto").classList.add("open"); $("#ovCount").classList.remove("open"); $("#ovPause").classList.remove("open"); $("#ovEnd").classList.remove("open");
+  G.state = "count"; G.startsAt = null;
+  $("#howtoCount").textContent = "Đang vào phòng…";
+  $("#ovHowto").classList.add("open"); $("#ovCount").classList.remove("open"); $("#ovEnd").classList.remove("open");
   cancelAnimationFrame(rafId); lastT = performance.now(); rafId = requestAnimationFrame(frame);
-}
-$("#btnQuitHowto").addEventListener("click", () => { G = null; go("home"); });
-$("#btnStart").addEventListener("click", async () => {
-  // tính lượt khi bấm bắt đầu: máy chủ trừ lượt và cấp mã lượt chơi
-  const b = $("#btnStart"); if (b.disabled || !G) return; b.disabled = true;
-  try {
-    const r = await rpc("catch_start", { p_token: S.token });
-    G.play = r.play; S.me.turnsLeft = r.turnsLeft; save();
-  } catch (e) {
-    toast(errText(e));
-    if (e.code === "NO_PLAYER") { S.me = null; save(); G = null; go("home"); openReg(); }
-    else if (e.code !== "NETWORK") { G = null; go("home"); }
-    return;
-  } finally { b.disabled = false; }
-  $("#ovHowto").classList.remove("open");
   try { actx = actx || new (window.AudioContext || window.webkitAudioContext)(); actx.resume && actx.resume(); } catch (e) {}
-  countdown(3);
-});
-function countdown(n) {
-  G.state = "count"; const ov = $("#ovCount"), num = $("#countNum"); ov.classList.add("open");
-  const step = k => {
-    num.style.animation = "none"; void num.offsetWidth; num.style.animation = "";
-    num.textContent = k > 0 ? k : "Bắt đầu!"; num.style.fontSize = k > 0 ? "" : "64px";
-    if (k > 0) { SFX.tick(); setTimeout(() => step(k - 1), 750); } else { beep(990, 0.15, "triangle", 0.08); setTimeout(() => { ov.classList.remove("open"); G.state = "play"; lastT = performance.now(); }, 450); }
-  };
-  step(n);
+  try {
+    const t0 = Date.now(), r = await rpc("catch_start", { p_token: S.token });
+    setClock(r.state, t0); ST = r.state;
+    G.play = r.play; G.startsAt = r.state.startsAt; G.duration = r.state.duration;
+    S.me.turnsLeft = r.turnsLeft; save();
+    if (nowS() >= G.startsAt) {
+      $("#ovHowto").classList.remove("open"); G.state = "play";
+      toast("Bạn vào muộn, còn " + Math.ceil((G.startsAt + G.duration * 1000 - nowS()) / 1000) + " giây.");
+    }
+  } catch (e) {
+    toast(errText(e)); G = null;
+    if (e.code === "NO_PLAYER") { S.me = null; save(); go("home"); openReg(); }
+    else if (e.code === "ENDED" || e.code === "NO_TURNS") go("board");
+    else go("home");
+  } finally { entering = false; }
 }
-function pauseGame() { if (G && G.state === "play") { G.state = "pause"; $("#ovPause").classList.add("open"); } }
-$("#btnPause").addEventListener("click", pauseGame);
-$("#btnResume").addEventListener("click", () => { $("#ovPause").classList.remove("open"); G.state = "play"; lastT = performance.now(); });
-$("#btnQuit").addEventListener("click", () => { $("#ovPause").classList.remove("open"); endGame(true); });
-document.addEventListener("visibilitychange", () => { if (document.hidden) pauseGame(); });
+// Đếm ngược chung: hiện cách chơi kèm số giây, 3 giây cuối hiện số to.
+function tickCountdown() {
+  if (!G.startsAt) return;
+  const left = (G.startsAt - nowS()) / 1000, k = Math.ceil(left);
+  if (k !== G.lastCount) {
+    G.lastCount = k;
+    $("#howtoCount").innerHTML = k > 0 ? "Bắt đầu sau <b>" + k + "</b> giây" : "Bắt đầu!";
+    if (k <= 3 && k > 0) {
+      $("#ovHowto").classList.remove("open");
+      const ov = $("#ovCount"), num = $("#countNum");
+      ov.classList.add("open"); num.style.animation = "none"; void num.offsetWidth; num.style.animation = "";
+      num.textContent = k; num.style.fontSize = ""; SFX.tick();
+    }
+  }
+  if (left <= 0) { $("#ovHowto").classList.remove("open"); $("#ovCount").classList.remove("open"); beep(990, 0.15, "triangle", 0.08); G.state = "play"; }
+}
 $("#btnMute").addEventListener("click", () => { S.muted = !S.muted; save(); setMuteIcon(); });
 function setMuteIcon() { $("#icoSound").innerHTML = S.muted ? '<path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="m22 9-6 6M16 9l6 6"/>' : '<path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/>'; }
 
@@ -947,7 +1002,6 @@ addEventListener("keydown", e => {
   if (!$("#s-game").classList.contains("active")) return;
   if (e.key === "ArrowLeft" || e.key === "a") keys.left = true;
   if (e.key === "ArrowRight" || e.key === "d") keys.right = true;
-  if (e.key === "Escape" || e.key === "p") pauseGame();
 });
 addEventListener("keyup", e => { if (e.key === "ArrowLeft" || e.key === "a") keys.left = false; if (e.key === "ArrowRight" || e.key === "d") keys.right = false; });
 
@@ -957,22 +1011,20 @@ function pickType(d) {
     brand: 60,
     lotus: 8,
     storm: lerp(14, 28, d),
-    clock: (G.timeLeft < 32 && G.clocks < 3) ? 5 : 0,
     // bánh kem: không rơi khi đang x2, tối đa CONFIG.cakesPerRound cái mỗi lượt
     cake: (G.boost <= 0 && G.cakesSpawned < CONFIG.cakesPerRound && G.elapsed > 4) ? 4 : 0,
   };
   // bảo đảm lượt nào cũng có ít nhất 1 bánh kem
   if (w.cake && G.cakesSpawned === 0 && G.elapsed > 14) return "cake";
-  let r = Math.random() * (w.brand + w.lotus + w.storm + w.clock + w.cake);
-  for (const k of ["brand", "lotus", "storm", "clock", "cake"]) { if ((r -= w[k]) < 0) return k; }
+  let r = Math.random() * (w.brand + w.lotus + w.storm + w.cake);
+  for (const k of ["brand", "lotus", "storm", "cake"]) { if ((r -= w[k]) < 0) return k; }
   return "brand";
 }
 function spawn(d) {
   const type = pickType(d);
-  if (type === "clock") G.clocks++;
   if (type === "cake") G.cakesSpawned++;
   const base = Math.max(22, Math.min(32, W * 0.065));
-  const r = type === "lotus" ? base * 1.12 : type === "cake" ? base * 1.15 : type === "clock" ? base * 0.8 : base;
+  const r = type === "lotus" ? base * 1.12 : type === "cake" ? base * 1.15 : base;
   const speed = type === "lotus" ? 1.12 : type === "cake" ? 0.9 : 1;
   G.items.push({ type, r, x: r * 1.2 + Math.random() * (W - 2.4 * r), y: -r * 2, vy: H * lerp(0.3, 0.6, d) * (0.85 + Math.random() * 0.3) * speed,
     rot: Math.random() * 6, vr: (Math.random() - 0.5) * 3, sway: Math.random() * 6, bi: Math.floor(Math.random() * BRANDS.length) });
@@ -990,7 +1042,7 @@ function update(dt) {
   G.shake = Math.max(0, G.shake - dt); G.flash = Math.max(0, G.flash - dt); G.pink = Math.max(0, G.pink - dt);
   if (G.state !== "play") return;
 
-  G.elapsed += dt; G.timeLeft -= dt;
+  G.elapsed = (nowS() - G.startsAt) / 1000; G.timeLeft = G.duration - G.elapsed;
   if (G.boost > 0) {
     G.boost -= dt;
     if (G.boost <= 0) { G.boost = 0; addFloat(s.x, s.y - 50, "Hết x2", "#E0D4BF", 18); beep(520, 0.15, "sine", 0.06, 330); }
@@ -1030,8 +1082,6 @@ function catchItem(it) {
     addFloat(it.x, it.y, "−20", "#FF8A8A");
     if (G.boost > 0) { G.boost = 0; addFloat(G.sled.x, G.sled.y - 50, "Mất x2", "#FF8A8A", 18); }
     SFX.coal(); try { navigator.vibrate && navigator.vibrate(60); } catch (e) {}
-  } else if (it.type === "clock") {
-    G.timeLeft += 5; addFloat(it.x, it.y, "+5 giây", "#7CE3A8"); SFX.clock(); G.lastTick = Math.max(G.lastTick, Math.ceil(G.timeLeft));
   }
 }
 function updateHud() {
@@ -1084,8 +1134,9 @@ function render() {
 function frame(t) {
   if (!G) return;
   const dt = Math.min(0.05, (t - lastT) / 1000); lastT = t;
-  if (G.state !== "pause") update(G.state === "play" ? dt : dt * 0); // chỉ cập nhật nền khi chưa chơi
-  if (G.state === "howto" || G.state === "count") { for (const f of G.snow) { f.y += f.v * dt; if (f.y > 1.02) f.y = -0.02; } }
+  if (G.state === "count") tickCountdown();
+  update(G.state === "play" ? dt : 0);
+  if (G && G.state === "count") { for (const f of G.snow) { f.y += f.v * dt; if (f.y > 1.02) f.y = -0.02; } }
   render();
   if (G && G.state !== "over") rafId = requestAnimationFrame(frame);
 }
@@ -1108,13 +1159,17 @@ async function sendResult() {
     S.me = m; save(); r.sent = true; r.error = null;
   } catch (e) { r.error = e; }
 }
+let showMine = false;
 function showResult() {
-  const r = lastResult, m = S.me; G = null;
-  go("result");
-  $("#resCs").textContent = m ? m.unit : "";
+  G = null; showMine = true; go("board");
+  const inTop = renderMine();
+  if (inTop && !lastResult.quit && !lastResult.error) confetti(60);
+}
+// Thẻ điểm của mình trên bảng xếp hạng; gọi lại mỗi lần bảng làm mới vì hạng thay đổi khi người khác gửi điểm.
+function renderMine() {
+  const r = lastResult, m = S.me; if (!r) return false;
   $("#resScore").textContent = r.score;
-  const isBest = r.sent && r.score > 0 && (r.prevBest == null || r.score > r.prevBest);
-  $("#resBest").innerHTML = isBest ? '<span class="newbest">Kỷ lục mới của bạn!</span>' : (m && m.best != null ? `<span class="small">Điểm cao nhất của bạn: ${m.best}</span>` : "");
+  $("#resBest").innerHTML = "";
   $("#rGifts").textContent = r.logos; $("#rCake").textContent = r.cakes; $("#rCoal").textContent = r.coal;
   const inTop = m && m.rank && m.rank <= CONFIG.topN;
   $("#resRank").innerHTML = m && m.rank ? `<small>Hạng hiện tại</small><b>#${m.rank}</b><small>trên ${m.players} người chơi</small>` : "";
@@ -1123,14 +1178,12 @@ function showResult() {
   if (r.quit) msg = "Bạn đã bỏ lượt này, lượt vẫn được tính là đã chơi.";
   else if (r.error && r.error.code === "REJECTED") msg = errText(r.error);
   else if (r.error) msg = "Chưa gửi được điểm lên bảng xếp hạng. Bấm \"Gửi lại điểm\" khi có mạng nhé.";
-  else if (inTop) msg = `Bạn đang trong Top ${CONFIG.topN}! Giữ vững phong độ đến khi chương trình kết thúc nhé.`;
-  else msg = `Lọt Top ${CONFIG.topN} là nhận quà. Cố lên!`;
+  else if (inTop) msg = `Chúc mừng! Bạn đang trong Top ${CONFIG.topN}.`;
+  else msg = `Cảm ơn bạn đã tham gia! Bảng xếp hạng đang cập nhật khi mọi người gửi điểm.`;
   $("#resMsg").textContent = msg;
   $("#btnResend").hidden = !(r.error && r.error.code !== "REJECTED");
-  const tl = m ? m.turnsLeft : 0;
-  $("#btnReplay").hidden = tl <= 0;
-  $("#btnReplay").textContent = "Chơi lại (còn " + tl + " lượt)";
-  if (inTop && !r.quit && !r.error) confetti(60);
+  $("#btnReplay").hidden = true;
+  return !!inTop;
 }
 $("#btnReplay").addEventListener("click", startFlow);
 $("#btnResend").addEventListener("click", async () => {
@@ -1158,13 +1211,18 @@ async function renderBoard() {
   $("#tabCs").hidden = !m;
   if (!list.children.length) list.innerHTML = '<div class="empty card">Đang tải…</div>';
   let rows;
-  try { rows = await rpc("catch_board"); } catch (e) { list.innerHTML = `<div class="empty card">${esc(errText(e))}</div>`; return; }
+  try {
+    const [b, me] = await Promise.all([rpc("catch_board"), S.token ? rpc("catch_me", { p_token: S.token }).catch(() => null) : null]);
+    rows = b;
+    if (me) { S.me = me; save(); if (!$("#boardMine").hidden) renderMine(); }
+  } catch (e) { list.innerHTML = `<div class="empty card">${esc(errText(e))}</div>`; return; }
+  const m2 = S.me;
   if (boardTab === "cs" && m) rows = rows.filter(r => r.unit === m.unit);
   if (!rows.length) { list.innerHTML = '<div class="empty card">Chưa có ai ghi điểm. Bạn là người đầu tiên nhé!</div>'; return; }
   let html = "", cut = false;
   rows.forEach(r => {
-    const top = r.rank <= CONFIG.topN, me = m && m.rank === r.rank;
-    if (!top && !cut && boardTab === "all") { cut = true; html += `<div class="top-cut">Top ${CONFIG.topN} nhận quà ở trên</div>`; }
+    const top = r.rank <= CONFIG.topN, me = m2 && m2.rank === r.rank;
+    if (!top && !cut) { cut = true; html += `<div class="top-cut">Top ${CONFIG.topN} nhận quà ở trên</div>`; }
     html += `<div class="lb ${top ? "top" : ""} ${me ? "me" : ""}"><div class="rk ${r.rank <= 3 ? "r" + r.rank : top ? "rt" : ""}">${r.rank}</div>
       <div class="nm"><b>${esc(r.name)}${me ? " (bạn)" : ""}</b><span>${esc(r.unit)} · ${esc(r.phone)}</span></div>
       ${top ? '<span class="tag top">TOP ' + CONFIG.topN + "</span>" : ""}<div class="sc">${r.best}</div></div>`;
@@ -1183,8 +1241,8 @@ async function loadAdmin() {
   try { admData = await rpc("catch_admin_board", { p_key: admKey }); }
   catch (e) { if (e.code === "FORBIDDEN") { admKey = null; try { sessionStorage.removeItem("catch-admin-key"); } catch (x) {} renderAdmin(); } else toast(errText(e)); return; }
   const d = admData;
-  $("#admStats").textContent = `${d.players} người đăng ký · ${d.rows.length} người có điểm · mỗi người ${d.config.turns} lượt · game đang ${d.config.open ? "MỞ" : "ĐÓNG"}`;
-  $("#btnAdmOpen").textContent = d.config.open ? "Đóng game" : "Mở lại game";
+  $("#admStats").textContent = `${d.players} người trong phòng · ${d.rows.length} người đã có điểm`;
+  ST = d.state; renderAdminState();
   $("#admTable").innerHTML = "<tr><th>Hạng</th><th>Họ tên</th><th>SĐT</th><th>Đơn vị</th><th>Điểm</th><th>Lượt</th><th>Đạt lúc</th><th></th></tr>" +
     (d.rows.length ? d.rows.map(r => `<tr class="${r.rank <= CONFIG.topN ? "top" : ""}"><td><b>${r.rank}</b></td><td>${esc(r.name)}</td><td>${esc(r.phone)}</td><td>${esc(r.unit)}</td><td class="n"><b>${r.best}</b></td><td class="n">${r.plays}</td><td>${fmtDT(r.bestAt)}</td><td><button class="link" data-del="${esc(r.id)}" data-name="${esc(r.name)}">Xoá</button></td></tr>`).join("")
       : '<tr><td colspan="8" class="center small">Chưa có ai ghi điểm.</td></tr>');
@@ -1198,8 +1256,27 @@ $("#btnAdm").addEventListener("click", async () => {
 });
 $("#admKey").addEventListener("keydown", e => { if (e.key === "Enter") $("#btnAdm").click(); });
 $("#btnAdmOut").addEventListener("click", () => { admKey = null; try { sessionStorage.removeItem("catch-admin-key"); } catch (e) {} renderAdmin(); });
-$("#btnAdmOpen").addEventListener("click", async () => {
-  try { await rpc("catch_admin_set_open", { p_key: admKey, p_open: !admData.config.open }); loadAdmin(); } catch (e) { toast(errText(e)); }
+function renderAdminState() {
+  if (!admKey || !ST) return;
+  const st = ST.status, left = ST.startsAt ? Math.ceil((ST.startsAt - nowS()) / 1000) : 0;
+  const end = ST.startsAt ? Math.ceil((ST.startsAt + ST.duration * 1000 - nowS()) / 1000) : 0;
+  $("#admState").innerHTML = st === "waiting" ? `<b>Đang chờ</b> · ${ST.players} người trong phòng chờ. Bấm "Bắt đầu" khi MC hô.`
+    : st === "countdown" ? `<b class="gold">Bắt đầu sau ${Math.max(0, left)} giây</b>`
+    : st === "running" ? `<b class="gold">Đang chơi · còn ${Math.max(0, end)} giây</b> · ${ST.played} người đã gửi điểm`
+    : `<b>Đã kết thúc</b> · ${ST.played} người có điểm. Bảng dưới là kết quả, Top ${CONFIG.topN} được tô vàng.`;
+  $("#btnAdmStart").hidden = st !== "waiting";
+  $("#btnAdmReset").hidden = st === "waiting" || st === "countdown" || st === "running";
+}
+$("#btnAdmStart").addEventListener("click", async () => {
+  const b = $("#btnAdmStart"); b.disabled = true;
+  try { const t0 = Date.now(); const st = await rpc("catch_admin_start", { p_key: admKey, p_delay: 10 }); setClock(st, t0); ST = st; renderAdminState(); pollState(); }
+  catch (e) { toast(errText(e)); } finally { b.disabled = false; }
+});
+$("#btnAdmReset").addEventListener("click", async () => {
+  const b = $("#btnAdmReset");
+  if (b.dataset.armed !== "1") { b.dataset.armed = "1"; b.textContent = "Bấm lần nữa: xoá toàn bộ điểm"; setTimeout(() => { b.dataset.armed = ""; b.textContent = "Vòng mới (xoá điểm)"; }, 4000); return; }
+  b.dataset.armed = ""; b.textContent = "Vòng mới (xoá điểm)";
+  try { ST = await rpc("catch_admin_reset", { p_key: admKey }); toast("Đã xoá điểm, phòng đang chờ vòng mới."); loadAdmin(); } catch (e) { toast(errText(e)); }
 });
 $("#admTable").addEventListener("click", async e => {
   const b = e.target.closest("[data-del]"); if (!b) return;
@@ -1218,7 +1295,8 @@ $("#btnAdmCsv").addEventListener("click", () => {
 
 /* ===================== INIT ===================== */
 $$(".topN").forEach(el => el.textContent = CONFIG.topN);
-setMuteIcon(); renderBrandStrip(); renderHome(); refreshMe();
+setMuteIcon(); renderBrandStrip(); renderHome(); refreshMe(); pollState();
+setInterval(() => { if ($("#s-home").classList.contains("active") && ST && ST.status === "countdown") renderHome(); }, 500);
 if (location.hash === "#admin") go("admin");
 else { let seen = false; try { seen = sessionStorage.getItem("greeted") === "1"; } catch (e) {} if (!seen) openGreet(); }
 if (MOCK) document.body.insertAdjacentHTML("beforeend", '<div class="mock-badge">CHẠY THỬ · dữ liệu giả lập</div>');
