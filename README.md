@@ -1,6 +1,6 @@
 # Hứng quà 10 năm · Lotus Hospitality
 
-Minigame hứng logo kỷ niệm 10 năm Lotus Hospitality. Mở đầu bằng lời chúc mừng sinh nhật của Ban Giải pháp Công nghệ Tập đoàn.
+Minigame hứng logo kỷ niệm 10 năm thành lập Lotus Hospitality. Mở đầu bằng lời chúc mừng sinh nhật của Ban Giải pháp Công nghệ Tập đoàn.
 
 - Logo thương hiệu (Tiktak, Kite, Flexi, Diamond Time, Sứ Retreat, Sứ Memoir) +10, logo Lotus 10 năm +30.
 - Bánh kem sinh nhật: x2 điểm trong 8 giây.
