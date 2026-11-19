@@ -3,16 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
-<meta name="theme-color" content="#1E0626">
+<meta name="theme-color" content="#0B0805">
 <title>Hứng quà 10 năm · Lotus Hospitality</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&family=Prata&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#1E0626; --bg2:#2E0D3A; --bg3:#3F1650;
-  --card:rgba(255,255,255,.07); --card-b:rgba(252,209,122,.18);
-  --ink:#FFF8EC; --muted:#E2D2EA; --faint:#A98DB5;
+  /* Lotus 10 năm: đen nâu + vàng gold (nền sự kiện "Nền back-02/03", lotushospitality.vn) */
+  --bg:#0B0805; --bg2:#1F170E; --bg3:#2E2214;
+  --card:rgba(255,248,236,.06); --card-b:rgba(252,209,122,.22);
+  --ink:#FFF8EC; --muted:#E0D4BF; --faint:#A8977A;
   --orange:#D9A443; --orange2:#B9822C; --gold:#FCD17A;
   --red:#E0465C; --green:#1F9D63; --snow:#FFFFFF;
   --radius:18px;
@@ -23,7 +24,8 @@
 [hidden]{display:none !important}
 html,body{margin:0;height:100%}
 body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:15px;line-height:1.5;overflow-x:hidden;
-  background-image:radial-gradient(120% 60% at 50% -10%,#6A2A7A 0%,rgba(30,6,38,0) 62%),linear-gradient(180deg,#3A1048 0%,#1E0626 100%);background-attachment:fixed}
+  background-image:url("img/bg-doc.jpg");background-size:cover;background-position:center;background-attachment:fixed}
+@media (min-aspect-ratio:1/1){body{background-image:url("img/bg-ngang.jpg")}}
 button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
 input,select{font:inherit}
 #snowbg{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
@@ -50,7 +52,7 @@ h1,h2,h3{font-family:var(--display);margin:0;line-height:1.1;letter-spacing:-.01
 .card{background:var(--card);border:1px solid var(--card-b);border-radius:var(--radius);padding:16px}
 .btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:15px 18px;border-radius:16px;font-weight:700;font-size:16.5px;transition:transform .08s ease,filter .15s}
 .btn:active{transform:scale(.98)}
-.btn-primary{background:linear-gradient(180deg,#FFE7AE,#FCD17A 45%,#D9A443);color:#2A0833;box-shadow:0 10px 24px -8px rgba(217,164,67,.7),inset 0 1px 0 rgba(255,255,255,.5)}
+.btn-primary{background:linear-gradient(180deg,#FFE7AE,#FCD17A 45%,#D9A443);color:#1A1209;box-shadow:0 10px 24px -8px rgba(217,164,67,.7),inset 0 1px 0 rgba(255,255,255,.5)}
 .btn-primary[disabled]{filter:grayscale(.8) brightness(.7);box-shadow:none;cursor:not-allowed}
 .btn-ghost{background:var(--card);border:1px solid var(--card-b)}
 .btn-green{background:linear-gradient(180deg,#27B373,#178452);color:#fff;box-shadow:0 10px 24px -10px rgba(31,157,99,.8)}
@@ -96,7 +98,8 @@ h1,h2,h3{font-family:var(--display);margin:0;line-height:1.1;letter-spacing:-.01
 .check input{width:18px;height:18px;margin-top:2px;accent-color:var(--orange)}
 
 /* ---------- game ---------- */
-#s-game{position:fixed;inset:0;z-index:20;background:linear-gradient(180deg,#1E0626 0%,#3A1048 60%,#6A2A7A 100%)}
+#s-game{position:fixed;inset:0;z-index:20;background:#0B0805 url("img/bg-doc.jpg") center/cover no-repeat}
+@media (min-aspect-ratio:1/1){#s-game{background-image:url("img/bg-ngang.jpg")}}
 #s-game.active{display:block}
 #gameCanvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;display:block}
 .hud{position:absolute;left:0;right:0;top:0;display:flex;align-items:center;justify-content:space-between;padding:max(12px,env(safe-area-inset-top)) 14px 0;pointer-events:none;max-width:560px;margin:0 auto}
@@ -106,12 +109,12 @@ h1,h2,h3{font-family:var(--display);margin:0;line-height:1.1;letter-spacing:-.01
 .hud .score small{display:block;font-family:var(--font);font-size:10.5px;font-weight:600;color:var(--muted);letter-spacing:.08em;text-align:center}
 .hud .time.low{color:#FF8A8A;border-color:rgba(255,138,138,.5)}
 .hud .right{display:flex;gap:6px}
-.boost{position:absolute;left:50%;top:calc(max(12px,env(safe-area-inset-top)) + 54px);transform:translateX(-50%) scale(.8);display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 14px 8px;border-radius:14px;background:linear-gradient(180deg,rgba(255,138,170,.28),rgba(252,209,122,.22));border:1px solid rgba(252,209,122,.6);font-family:var(--display);font-weight:800;font-size:18px;color:#FFE7AE;opacity:0;transition:opacity .2s,transform .25s cubic-bezier(.34,1.56,.64,1);pointer-events:none;text-shadow:0 2px 10px rgba(0,0,0,.5);white-space:nowrap}
+.boost{position:absolute;left:50%;top:calc(max(12px,env(safe-area-inset-top)) + 54px);transform:translateX(-50%) scale(.8);display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 14px 8px;border-radius:14px;background:linear-gradient(180deg,rgba(244,177,131,.28),rgba(252,209,122,.22));border:1px solid rgba(252,209,122,.6);font-family:var(--display);font-weight:800;font-size:18px;color:#FFE7AE;opacity:0;transition:opacity .2s,transform .25s cubic-bezier(.34,1.56,.64,1);pointer-events:none;text-shadow:0 2px 10px rgba(0,0,0,.5);white-space:nowrap}
 .boost.show{opacity:1;transform:translateX(-50%) scale(1)}
 .boost .bar{width:120px;height:5px;border-radius:9px;background:rgba(255,255,255,.18);overflow:hidden}
-.boost .bar i{display:block;height:100%;background:linear-gradient(90deg,#FF8AAA,#FCD17A);width:100%}
-.legend .wide{grid-column:1/-1;border-color:rgba(252,209,122,.55);background:linear-gradient(90deg,rgba(255,138,170,.16),rgba(252,209,122,.12))}
-.legend .x2{color:#FFB3C8}
+.boost .bar i{display:block;height:100%;background:linear-gradient(90deg,#F4B183,#FCD17A);width:100%}
+.legend .wide{grid-column:1/-1;border-color:rgba(252,209,122,.55);background:linear-gradient(90deg,rgba(244,177,131,.16),rgba(252,209,122,.12))}
+.legend .x2{color:#FFD2B5}
 .overlay{position:absolute;inset:0;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(8,14,26,.72);backdrop-filter:blur(3px);z-index:5}
 .overlay.open{display:flex}
 .howto{max-width:380px;width:100%}
@@ -293,9 +296,9 @@ table.stock td.n{text-align:right;font-variant-numeric:tabular-nums}
       <p class="sub" id="giftSub">Mỗi hộp chứa một phần quà ngẫu nhiên của Lotus Hospitality.</p>
     </div>
     <div class="boxes idle" id="boxes">
-      <div class="gbox" style="--c:#7A2E8C;--rb:#FCD17A" data-i="0"><div class="lid"><div class="bow"></div></div><div class="body"></div><div class="q">?</div></div>
+      <div class="gbox" style="--c:#2E2214;--rb:#FCD17A" data-i="0"><div class="lid"><div class="bow"></div></div><div class="body"></div><div class="q">?</div></div>
       <div class="gbox" style="--c:#D9A443;--rb:#FFF8EC" data-i="1"><div class="lid"><div class="bow"></div></div><div class="body"></div><div class="q">?</div></div>
-      <div class="gbox" style="--c:#C2416B;--rb:#FCD17A" data-i="2"><div class="lid"><div class="bow"></div></div><div class="body"></div><div class="q">?</div></div>
+      <div class="gbox" style="--c:#8C5A2E;--rb:#FCD17A" data-i="2"><div class="lid"><div class="bow"></div></div><div class="body"></div><div class="q">?</div></div>
     </div>
     <div class="prize-card" id="prizeCard">
       <div class="small" style="color:var(--gold);font-weight:700;letter-spacing:.12em;text-transform:uppercase">Chúc mừng! Bạn nhận được</div>
@@ -489,7 +492,7 @@ const ICONS = {
 const PRIZES = [
   { id: "drink",    name: "1 ly đồ uống",                 desc: "Một ly đồ uống bất kỳ tại quầy bar của các thương hiệu Lotus", weight: 58, stock: 300, exp: "31/01/2027", bg: "rgba(252,209,122,.18)", fg: "#FCD17A" },
   { id: "daypass",  name: "1 Day Pass Tiktak",            desc: "Một ngày chỗ ngồi linh hoạt tại Tiktak",                       weight: 15, stock: 60,  exp: "31/01/2027", bg: "rgba(110,160,255,.2)",  fg: "#8DB4FF" },
-  { id: "discount", name: "Voucher giảm 10%",             desc: "Áp dụng cho dịch vụ của các thương hiệu thành viên Lotus",     weight: 14, stock: 100, exp: "31/01/2027", bg: "rgba(255,138,170,.2)",  fg: "#FFB3C8" },
+  { id: "discount", name: "Voucher giảm 10%",             desc: "Áp dụng cho dịch vụ của các thương hiệu thành viên Lotus",     weight: 14, stock: 100, exp: "31/01/2027", bg: "rgba(244,177,131,.2)",  fg: "#FFD2B5" },
   { id: "room",     name: "Bánh kem sinh nhật mini",      desc: "Nhận tại tiệc kỷ niệm 10 năm Lotus Hospitality",              weight: 10, stock: 40,  exp: "31/12/2026", bg: "rgba(31,157,99,.2)",    fg: "#5AD39A" },
   { id: "grand",    name: "1 đêm nghỉ dưỡng cho 2 người", desc: "Giải đặc biệt kỷ niệm 10 năm",                                 weight: 3,  stock: 3,   exp: "31/03/2027", bg: "rgba(252,209,122,.24)", fg: "#FCD17A" },
 ];
@@ -558,9 +561,9 @@ function roundRect(ctx, x, y, w, h, r) { ctx.beginPath(); ctx.moveTo(x + r, y); 
 const BRANDS = [
   { id: "tiktak",      name: "Tiktak",       src: "img/color-tiktak.png",      light: true },
   { id: "kite",        name: "Kite",         src: "img/color-kite.png",        light: true },
-  { id: "flexi",       name: "Flexi",        src: "img/brand-flexi.png",       c: ["#7A2E8C", "#3A1048"] },
-  { id: "diamondtime", name: "Diamond Time", src: "img/brand-diamondtime.png", c: ["#7A2E8C", "#3A1048"] },
-  { id: "su-retreat",  name: "Sứ Retreat",   src: "img/brand-su-retreat.png",  c: ["#7A2E8C", "#3A1048"] },
+  { id: "flexi",       name: "Flexi",        src: "img/brand-flexi.png",       c: ["#3A2C1A", "#120C06"] },
+  { id: "diamondtime", name: "Diamond Time", src: "img/brand-diamondtime.png", c: ["#3A2C1A", "#120C06"] },
+  { id: "su-retreat",  name: "Sứ Retreat",   src: "img/brand-su-retreat.png",  c: ["#3A2C1A", "#120C06"] },
   { id: "su-memoir",   name: "Sứ Memoir",    src: "img/brand-su-memoir.png",   c: ["#6E8A85", "#5D7772"] },
 ];
 const IMG = {};
@@ -588,7 +591,7 @@ function drawLotus(ctx, x, y, r, rot = 0, t = 0) {
   glow.addColorStop(0, "rgba(252,209,122,.6)"); glow.addColorStop(1, "rgba(252,209,122,0)");
   ctx.fillStyle = glow; ctx.beginPath(); ctx.arc(0, 0, r * 1.8 * (1 + 0.07 * Math.sin(t * 8)), 0, Math.PI * 2); ctx.fill();
   ctx.rotate(rot);
-  const g = ctx.createRadialGradient(-r * 0.3, -r * 0.4, r * 0.1, 0, 0, r); g.addColorStop(0, "#5E2272"); g.addColorStop(1, "#1E0626");
+  const g = ctx.createRadialGradient(-r * 0.3, -r * 0.4, r * 0.1, 0, 0, r); g.addColorStop(0, "#3A2A14"); g.addColorStop(1, "#0B0805");
   ctx.fillStyle = g; ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.fill();
   const ring = ctx.createLinearGradient(-r, -r, r, r); ring.addColorStop(0, "#FFE7AE"); ring.addColorStop(0.5, "#D9A443"); ring.addColorStop(1, "#FFE7AE");
   ctx.strokeStyle = ring; ctx.lineWidth = Math.max(2, r * 0.13); ctx.stroke();
@@ -602,26 +605,26 @@ function drawCake(ctx, x, y, r, t = 0, badge = true) {
   ctx.save(); ctx.translate(x, y);
   // hào quang hồng – vàng
   const glow = ctx.createRadialGradient(0, 0, r * 0.4, 0, 0, r * 1.9);
-  glow.addColorStop(0, "rgba(255,138,170,.55)"); glow.addColorStop(0.6, "rgba(252,209,122,.18)"); glow.addColorStop(1, "rgba(252,209,122,0)");
+  glow.addColorStop(0, "rgba(244,177,131,.55)"); glow.addColorStop(0.6, "rgba(252,209,122,.18)"); glow.addColorStop(1, "rgba(252,209,122,0)");
   ctx.fillStyle = glow; ctx.beginPath(); ctx.arc(0, 0, r * 1.9 * (1 + 0.08 * Math.sin(t * 7)), 0, Math.PI * 2); ctx.fill();
   ctx.rotate(Math.sin(t * 3) * 0.06);
   // đĩa vàng
   const pg = ctx.createLinearGradient(-r, 0, r, 0); pg.addColorStop(0, "#B9822C"); pg.addColorStop(0.5, "#FFE7AE"); pg.addColorStop(1, "#B9822C");
   ctx.fillStyle = pg; ctx.beginPath(); ctx.ellipse(0, r * 0.78, r * 1.05, r * 0.18, 0, 0, Math.PI * 2); ctx.fill();
   // tầng dưới
-  let g = ctx.createLinearGradient(0, r * 0.05, 0, r * 0.75); g.addColorStop(0, "#FFF6F8"); g.addColorStop(1, "#F6C9D6");
+  let g = ctx.createLinearGradient(0, r * 0.05, 0, r * 0.75); g.addColorStop(0, "#FFF8F0"); g.addColorStop(1, "#F3D9C4");
   ctx.fillStyle = g; roundRect(ctx, -r * 0.9, r * 0.05, r * 1.8, r * 0.72, r * 0.14); ctx.fill();
-  ctx.fillStyle = "#7A2E8C"; ctx.fillRect(-r * 0.9, r * 0.5, r * 1.8, r * 0.09);
+  ctx.fillStyle = "#5A3A1A"; ctx.fillRect(-r * 0.9, r * 0.5, r * 1.8, r * 0.09);
   // kem chảy tầng dưới
-  ctx.fillStyle = "#FF8AAA"; ctx.beginPath(); ctx.moveTo(-r * 0.9, r * 0.05);
+  ctx.fillStyle = "#F4B183"; ctx.beginPath(); ctx.moveTo(-r * 0.9, r * 0.05);
   for (let i = 0; i <= 6; i++) { const px = -r * 0.9 + i * r * 0.3; ctx.lineTo(px, r * 0.05); ctx.quadraticCurveTo(px + r * 0.15, r * (i % 2 ? 0.34 : 0.26), Math.min(px + r * 0.3, r * 0.9), r * 0.05); }
   ctx.closePath(); ctx.fill(); ctx.fillRect(-r * 0.9, r * 0.02, r * 1.8, r * 0.08);
   // tầng trên
-  g = ctx.createLinearGradient(0, -r * 0.48, 0, r * 0.08); g.addColorStop(0, "#FFFFFF"); g.addColorStop(1, "#F9DCE5");
+  g = ctx.createLinearGradient(0, -r * 0.48, 0, r * 0.08); g.addColorStop(0, "#FFFFFF"); g.addColorStop(1, "#F8E6D6");
   ctx.fillStyle = g; roundRect(ctx, -r * 0.6, -r * 0.46, r * 1.2, r * 0.56, r * 0.12); ctx.fill();
-  ctx.fillStyle = "#FF8AAA"; roundRect(ctx, -r * 0.62, -r * 0.5, r * 1.24, r * 0.14, r * 0.07); ctx.fill();
+  ctx.fillStyle = "#F4B183"; roundRect(ctx, -r * 0.62, -r * 0.5, r * 1.24, r * 0.14, r * 0.07); ctx.fill();
   // hạt cốm
-  const dots = [[-0.4, -0.15, "#FCD17A"], [0.05, -0.2, "#8E3BA3"], [0.38, -0.12, "#3FB6C8"], [-0.6, 0.3, "#8E3BA3"], [-0.15, 0.36, "#FCD17A"], [0.3, 0.28, "#3FB6C8"], [0.65, 0.36, "#FCD17A"]];
+  const dots = [[-0.4, -0.15, "#FCD17A"], [0.05, -0.2, "#C8A058"], [0.38, -0.12, "#3FB6C8"], [-0.6, 0.3, "#C8A058"], [-0.15, 0.36, "#FCD17A"], [0.3, 0.28, "#3FB6C8"], [0.65, 0.36, "#FCD17A"]];
   dots.forEach(([a, b, c]) => { ctx.fillStyle = c; ctx.beginPath(); ctx.arc(a * r, b * r, Math.max(1, r * 0.055), 0, Math.PI * 2); ctx.fill(); });
   // nến số "10"
   ctx.font = `800 ${Math.round(r * 0.62)}px "Baloo 2",sans-serif`; ctx.textAlign = "center"; ctx.textBaseline = "alphabetic";
@@ -664,7 +667,7 @@ function drawClock(ctx, x, y, r, rot = 0) {
   ctx.save(); ctx.translate(x, y); ctx.rotate(rot * 0.3);
   ctx.fillStyle = "#D9A443"; ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.fill();
   ctx.fillStyle = "#FFFDF7"; ctx.beginPath(); ctx.arc(0, 0, r * 0.78, 0, Math.PI * 2); ctx.fill();
-  ctx.strokeStyle = "#3A1048"; ctx.lineWidth = Math.max(1.4, r * 0.12); ctx.lineCap = "round";
+  ctx.strokeStyle = "#1A1209"; ctx.lineWidth = Math.max(1.4, r * 0.12); ctx.lineCap = "round";
   ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(0, -r * 0.5); ctx.moveTo(0, 0); ctx.lineTo(r * 0.36, r * 0.12); ctx.stroke();
   ctx.fillStyle = "#7CE3A8"; ctx.font = `800 ${Math.round(r * 0.62)}px "Baloo 2",sans-serif`; ctx.textAlign = "center"; ctx.textBaseline = "middle";
   ctx.fillText("+5", 0, r * 1.45);
@@ -672,7 +675,7 @@ function drawClock(ctx, x, y, r, rot = 0) {
 }
 function drawBasket(ctx, x, y, w, h, tilt = 0) {
   ctx.save(); ctx.translate(x, y); ctx.rotate(tilt);
-  const g = ctx.createLinearGradient(0, -h * 0.4, 0, h * 0.55); g.addColorStop(0, "#9A44B0"); g.addColorStop(1, "#4A1559");
+  const g = ctx.createLinearGradient(0, -h * 0.4, 0, h * 0.55); g.addColorStop(0, "#3A2C1A"); g.addColorStop(1, "#120C06");
   ctx.fillStyle = g; ctx.beginPath();
   ctx.moveTo(-w * 0.5, -h * 0.4); ctx.lineTo(w * 0.5, -h * 0.4); ctx.lineTo(w * 0.4, h * 0.42);
   ctx.quadraticCurveTo(w * 0.38, h * 0.55, w * 0.3, h * 0.55); ctx.lineTo(-w * 0.3, h * 0.55);
@@ -911,7 +914,7 @@ function update(dt) {
   G.elapsed += dt; G.timeLeft -= dt;
   if (G.boost > 0) {
     G.boost -= dt;
-    if (G.boost <= 0) { G.boost = 0; addFloat(s.x, s.y - 50, "Hết x2", "#E2D2EA", 18); beep(520, 0.15, "sine", 0.06, 330); }
+    if (G.boost <= 0) { G.boost = 0; addFloat(s.x, s.y - 50, "Hết x2", "#E0D4BF", 18); beep(520, 0.15, "sine", 0.06, 330); }
   }
   const d = Math.min(1, G.elapsed / 40);
   G.spawnAcc -= dt;
@@ -924,7 +927,7 @@ function update(dt) {
       it.dead = true; catchItem(it);
     } else if (!it.dead && it.y - it.r > H) {
       it.dead = true;
-      if (it.type === "cake") addFloat(it.x, H - 30, "Lỡ mất bánh kem!", "#FFB3C8", 18);
+      if (it.type === "cake") addFloat(it.x, H - 30, "Lỡ mất bánh kem!", "#FFD2B5", 18);
     }
   }
   G.items = G.items.filter(i => !i.dead);
@@ -937,11 +940,11 @@ function catchItem(it) {
   if (it.type === "brand" || it.type === "lotus") {
     const m = mult(), pts = (it.type === "lotus" ? 30 : 10) * m;
     G.score += pts; G.logos++;
-    addFloat(it.x, it.y, "+" + pts, m > 1 ? "#FFB3C8" : it.type === "lotus" ? "#FCD17A" : "#FFFFFF", m > 1 ? 26 : 22);
+    addFloat(it.x, it.y, "+" + pts, m > 1 ? "#FFD2B5" : it.type === "lotus" ? "#FCD17A" : "#FFFFFF", m > 1 ? 26 : 22);
     it.type === "lotus" ? SFX.star() : SFX.gift();
   } else if (it.type === "cake") {
     G.boost = CONFIG.boostSecs; G.cakes++; G.pink = 0.35;
-    addFloat(G.sled.x, G.sled.y - 70, "x2 ĐIỂM!", "#FFB3C8", 34);
+    addFloat(G.sled.x, G.sled.y - 70, "x2 ĐIỂM!", "#FFD2B5", 34);
     SFX.cake(); confetti(26);
   } else if (it.type === "storm") {
     G.score = Math.max(0, G.score - 20); G.coal++; G.shake = 0.35; G.flash = 0.25;
@@ -963,32 +966,22 @@ function updateHud() {
 function render() {
   const ctx = gctx; ctx.save(); ctx.clearRect(0, 0, W, H);
   if (G.shake > 0) ctx.translate((Math.random() - 0.5) * 10 * G.shake / 0.35, (Math.random() - 0.5) * 6 * G.shake / 0.35);
-  // đèn sân khấu
-  [[W * 0.18, 0.28], [W * 0.82, -0.28]].forEach(([sx, a], i) => {
+  // đèn sân khấu (chỉ bật khi đang x2, nền ảnh đã có vệt sáng)
+  if (G.boost > 0) [[W * 0.18, 0.28], [W * 0.82, -0.28]].forEach(([sx, a], i) => {
     ctx.save(); ctx.translate(sx, -10); ctx.rotate(a + Math.sin(G.elapsed * 0.7 + i * 2) * 0.1);
-    const gr = ctx.createLinearGradient(0, 0, 0, H * 0.9); gr.addColorStop(0, G.boost > 0 ? "rgba(255,138,170,.22)" : "rgba(252,209,122,.16)"); gr.addColorStop(1, "rgba(252,209,122,0)");
+    const gr = ctx.createLinearGradient(0, 0, 0, H * 0.9); gr.addColorStop(0, G.boost > 0 ? "rgba(244,177,131,.2)" : "rgba(252,209,122,.08)"); gr.addColorStop(1, "rgba(252,209,122,0)");
     ctx.fillStyle = gr; ctx.beginPath(); ctx.moveTo(-8, 0); ctx.lineTo(8, 0); ctx.lineTo(W * 0.24, H * 0.9); ctx.lineTo(-W * 0.24, H * 0.9); ctx.closePath(); ctx.fill(); ctx.restore();
   });
-  // số 10 mờ phía sau
-  ctx.fillStyle = "rgba(252,209,122,.06)"; ctx.font = `800 ${Math.round(Math.min(W, H) * 0.55)}px "Baloo 2",sans-serif`; ctx.textAlign = "center"; ctx.textBaseline = "middle";
-  ctx.fillText("10", W / 2, H * 0.42);
-  // toà nhà (silhouette)
-  ctx.fillStyle = "#2A0C36";
-  const bw = W / 9; for (let i = 0; i < 10; i++) { const hh = H * (0.12 + ((i * 37) % 7) * 0.025); ctx.fillRect(i * bw - 4, H - hh - 40, bw - 6, hh + 40); }
-  ctx.fillStyle = "rgba(252,209,122,.45)";
-  for (let i = 0; i < 10; i++) { const hh = H * (0.12 + ((i * 37) % 7) * 0.025); for (let r = 0; r < 4; r++) for (let c = 0; c < 2; c++) if ((i + r + c) % 3 === 0) ctx.fillRect(i * bw + 6 + c * (bw / 2 - 4), H - hh - 30 + r * 16, 5, 7); }
   // kim tuyến rơi
   for (const f of G.snow) { ctx.fillStyle = `rgba(255,231,174,${0.2 + f.r * 0.18})`; ctx.beginPath(); ctx.arc(f.x * W, f.y * H, f.r, 0, Math.PI * 2); ctx.fill(); }
-  // sàn sân khấu
-  const gy = G.sled.y + G.sled.h * 0.58;
-  const fl = ctx.createLinearGradient(0, gy, 0, H); fl.addColorStop(0, "#6A2A7A"); fl.addColorStop(1, "#1E0626");
-  ctx.fillStyle = fl; ctx.fillRect(0, gy, W, H - gy);
-  ctx.fillStyle = "rgba(255,231,174,.85)"; ctx.fillRect(0, gy, W, 2);
-  ctx.fillStyle = "rgba(252,209,122,.25)"; ctx.fillRect(0, gy + 10, W, 1);
+  // bóng khay trên sàn
+  const sh = ctx.createRadialGradient(G.sled.x, G.sled.y + G.sled.h * 0.6, 2, G.sled.x, G.sled.y + G.sled.h * 0.6, G.sled.w * 0.6);
+  sh.addColorStop(0, "rgba(255,214,150,.28)"); sh.addColorStop(1, "rgba(255,214,150,0)");
+  ctx.fillStyle = sh; ctx.fillRect(G.sled.x - G.sled.w, G.sled.y, G.sled.w * 2, G.sled.h * 1.4);
   // hào quang quanh khay khi đang x2
   if (G.boost > 0) {
     const a = 0.4 + 0.15 * Math.sin(G.elapsed * 10), rr = G.sled.w * 0.9;
-    const hg = ctx.createRadialGradient(G.sled.x, G.sled.y, 4, G.sled.x, G.sled.y, rr); hg.addColorStop(0, `rgba(255,138,170,${a})`); hg.addColorStop(1, "rgba(255,138,170,0)");
+    const hg = ctx.createRadialGradient(G.sled.x, G.sled.y, 4, G.sled.x, G.sled.y, rr); hg.addColorStop(0, `rgba(244,177,131,${a})`); hg.addColorStop(1, "rgba(244,177,131,0)");
     ctx.fillStyle = hg; ctx.beginPath(); ctx.arc(G.sled.x, G.sled.y, rr, 0, Math.PI * 2); ctx.fill();
   }
   // vật rơi
@@ -1007,7 +1000,7 @@ function render() {
   ctx.globalAlpha = 1;
   ctx.restore();
   if (G.flash > 0) { ctx.fillStyle = `rgba(224,70,92,${G.flash * 0.6})`; ctx.fillRect(0, 0, W, H); }
-  if (G.pink > 0) { ctx.fillStyle = `rgba(255,170,200,${G.pink * 0.7})`; ctx.fillRect(0, 0, W, H); }
+  if (G.pink > 0) { ctx.fillStyle = `rgba(255,214,170,${G.pink * 0.7})`; ctx.fillRect(0, 0, W, H); }
 }
 function frame(t) {
   if (!G) return;
@@ -1107,7 +1100,7 @@ $("#boxes").addEventListener("click", e => {
 });
 function confetti(n) {
   if (reduceMotion) return;
-  const wrap = $("#confetti"), colors = ["#FCD17A", "#FFE7AE", "#D9A443", "#FF8AAA", "#FFFFFF", "#B57AD0"];
+  const wrap = $("#confetti"), colors = ["#FCD17A", "#FFE7AE", "#D9A443", "#F4B183", "#FFFFFF", "#F5E6C8"];
   for (let i = 0; i < n; i++) {
     const el = document.createElement("i");
     el.style.left = Math.random() * 100 + "vw"; el.style.background = colors[i % colors.length];
