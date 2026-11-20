@@ -263,6 +263,28 @@ body:has(#s-admin.active) #app{max-width:980px}
 .credit{display:block;margin:0 auto 10px;max-width:300px;font-size:12px;line-height:1.5;color:#A8977A;text-align:center}
 .credit:hover{color:var(--gold)}
 .adm-state{font-size:15px;margin-bottom:10px}
+.adm-qr{display:flex;gap:16px;align-items:center}
+a.btn{text-decoration:none}
+a.btn-ghost{color:var(--ink)}
+.adm-qr img{flex:0 0 120px;width:120px;height:120px;border-radius:12px;background:#FFF8EC;padding:6px}
+body:has(#s-qr.active) #app{max-width:none;padding:0}
+.qr-board{min-height:100dvh;display:grid;grid-template-columns:1fr auto;align-items:center;gap:6vw;padding:6vh 7vw}
+.qr-logo{height:15vh;width:auto;display:block;margin-bottom:2.5vh;filter:drop-shadow(0 8px 32px rgba(252,209,122,.3))}
+.qr-info .eyebrow{font-size:clamp(12px,1.8vh,20px);letter-spacing:.12em;text-transform:uppercase;color:var(--gold);font-weight:700}
+.qr-title{font-size:clamp(40px,9vh,110px);font-weight:600;line-height:1.05;margin:1vh 0 3vh;text-shadow:0 2px 24px rgba(0,0,0,.5)}
+.qr-status{font-size:clamp(18px,3.4vh,42px);font-weight:600;margin:0 0 2vh;text-shadow:0 1px 12px rgba(0,0,0,.55)}
+.qr-status b{color:var(--gold);font-size:1.5em;font-variant-numeric:tabular-nums;margin-right:.2em}
+.qr-steps{color:var(--muted);font-size:clamp(14px,2.2vh,26px);margin:0;text-shadow:0 1px 12px rgba(0,0,0,.55)}
+.qr-frame{background:#FFF8EC;padding:2.4vh;border-radius:28px;box-shadow:0 0 90px rgba(252,209,122,.28);text-align:center}
+.qr-frame img{width:min(62vh,40vw);height:auto;display:block}
+.qr-frame span{display:block;margin-top:1.4vh;color:#1A1209;font-weight:800;letter-spacing:.14em;text-transform:uppercase;font-size:clamp(14px,2.2vh,26px)}
+.qr-top{list-style:none;margin:0 0 3vh;padding:0;display:flex;flex-direction:column;gap:1.2vh;max-width:40vw}
+.qr-top li{display:flex;align-items:center;gap:1.4vw;padding:1.4vh 1.6vw;border-radius:16px;background:linear-gradient(90deg,rgba(252,209,122,.2),rgba(252,209,122,.05));border:1px solid rgba(252,209,122,.55);font-size:clamp(16px,2.8vh,34px)}
+.qr-top .rk{flex:0 0 auto;width:1.8em;height:1.8em;border-radius:50%;display:grid;place-items:center;background:linear-gradient(180deg,#FFE7AE,#D9A443);color:#1A1209;font-weight:800;font-size:.8em}
+.qr-top .nm{flex:1;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.qr-top .nm small{display:block;font-weight:500;font-size:.6em;color:var(--muted)}
+.qr-top .sc{font-weight:800;color:var(--gold);font-variant-numeric:tabular-nums}
+@media (max-aspect-ratio:1/1){.qr-board{grid-template-columns:1fr;justify-items:center;text-align:center}.qr-logo{margin:0 auto 2vh}.qr-frame img{width:70vw}.qr-top{max-width:90vw;width:100%}}
 .mock-badge{position:fixed;left:8px;bottom:8px;z-index:90;padding:4px 8px;border-radius:8px;background:#F4B183;color:#1A1209;font-size:11px;font-weight:700}
 .toast{position:fixed;left:50%;bottom:max(24px,env(safe-area-inset-bottom));transform:translate(-50%,30px);opacity:0;z-index:80;padding:11px 16px;border-radius:12px;background:#fff;color:#111;font-weight:600;font-size:14px;box-shadow:0 10px 30px rgba(0,0,0,.35);transition:all .25s;max-width:90vw;text-align:center}
 .toast.show{opacity:1;transform:translate(-50%,0)}
@@ -367,6 +389,21 @@ body:has(#s-admin.active) #app{max-width:980px}
     </div>
   </section>
 
+  <!-- ================= MÀN HÌNH CHIẾU (#qr) ================= -->
+  <section class="screen" id="s-qr">
+    <div class="qr-board">
+      <div class="qr-info">
+        <img class="qr-logo" src="img/lotus-10.png" alt="Lotus Hospitality · 10 Years">
+        <span class="eyebrow">Lotus Hospitality · 10 năm thành lập</span>
+        <h1 class="qr-title">Hứng quà 10 năm</h1>
+        <p class="qr-status" id="qrStatus"></p>
+        <ol class="qr-top" id="qrTop" hidden></ol>
+        <p class="qr-steps" id="qrSteps">Mở camera điện thoại · Quét mã · Đăng ký là vào phòng chờ</p>
+      </div>
+      <div class="qr-frame"><img src="img/qr.svg" alt="Mã QR vào game"><span>Quét để tham gia</span></div>
+    </div>
+  </section>
+
   <!-- ================= ADMIN (BTC) ================= -->
   <section class="screen" id="s-admin">
     <button class="back" data-go="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>Trang chủ</button>
@@ -381,6 +418,17 @@ body:has(#s-admin.active) #app{max-width:980px}
         <div class="adm-state" id="admState"></div>
         <div class="adm-row"><span id="admStats" class="small"></span>
           <span class="adm-actions"><button class="btn btn-primary btn-sm" id="btnAdmStart">Bắt đầu (đếm ngược 10 giây)</button><button class="btn btn-ghost btn-sm" id="btnAdmReset">Vòng mới (xoá điểm)</button><button class="btn btn-ghost btn-sm" id="btnAdmCsv">Tải Excel (CSV)</button><button class="btn btn-ghost btn-sm" id="btnAdmOut">Thoát</button></span>
+        </div>
+      </div>
+      <div class="card mt12 adm-qr">
+        <img src="img/qr.svg" alt="Mã QR vào game">
+        <div>
+          <b>Mã QR vào game</b>
+          <p class="small" style="margin:4px 0 10px">Người chơi quét mã này để đăng ký và vào phòng chờ. Mở màn hình chiếu để đưa lên màn hình sự kiện.</p>
+          <div class="adm-actions">
+            <a class="btn btn-primary btn-sm" href="#qr" target="_blank" rel="noopener">Mở màn hình chiếu</a>
+            <a class="btn btn-ghost btn-sm" href="img/qr.png" download="ma-qr-hung-qua-10-nam.png">Tải ảnh QR</a>
+          </div>
         </div>
       </div>
       <div class="adm-table-wrap mt12"><table class="adm-table" id="admTable"></table></div>
@@ -548,6 +596,7 @@ function onState() {
   const active = (sel) => $(sel).classList.contains("active");
   if (active("#s-home")) renderHome();
   if (active("#s-admin")) renderAdminState();
+  if (active("#s-qr")) renderQrBoard();
   // vòng chơi đã bắt đầu đếm ngược: ai đã đăng ký và chưa chơi thì tự vào game
   if (!G && S.me && S.me.turnsLeft > 0 && ST && (ST.status === "countdown" || ST.status === "running") && (active("#s-home") || active("#s-rules"))
       && !$("#regSheet").classList.contains("open") && !$("#greet").classList.contains("open")) enterGame();
@@ -866,10 +915,11 @@ function go(name) {
     renderBoard(); go._poll = setInterval(renderBoard, mine ? 5000 : 15000);
   }
   if (name === "admin") { renderAdmin(); go._poll = setInterval(() => { if (admKey) { const busy = ST && (ST.status === "countdown" || ST.status === "running"); go._n = (go._n || 0) + 1; if (busy ? go._n % 2 === 0 : go._n % 5 === 0) loadAdmin(); renderAdminState(); } }, 1000); }
-  if (location.hash === "#admin" && name !== "admin") history.replaceState(null, "", location.pathname + location.search);
+  if (name === "qr") { renderQrBoard(); go._poll = setInterval(renderQrBoard, 500); }
+  if ((location.hash === "#admin" && name !== "admin") || (location.hash === "#qr" && name !== "qr")) history.replaceState(null, "", location.pathname + location.search);
 }
 document.addEventListener("click", e => { const b = e.target.closest("[data-go]"); if (b) { e.preventDefault(); go(b.dataset.go); } });
-addEventListener("hashchange", () => { if (location.hash === "#admin") go("admin"); });
+addEventListener("hashchange", () => { if (location.hash === "#admin") go("admin"); if (location.hash === "#qr") go("qr"); });
 
 /* ===================== GREETING ===================== */
 function openGreet() { $("#greet").classList.add("open"); }
@@ -1254,6 +1304,27 @@ async function renderBoard() {
   list.innerHTML = html;
 }
 
+/* ===================== MÀN HÌNH CHIẾU (#qr) ===================== */
+let qrTopAt = 0;
+function renderQrBoard() {
+  if (!ST) { $("#qrStatus").textContent = ""; return; }
+  const st = ST.status, left = ST.startsAt ? Math.ceil((ST.startsAt - nowS()) / 1000) : 0;
+  const end = ST.startsAt ? Math.ceil((ST.startsAt + ST.duration * 1000 - nowS()) / 1000) : 0;
+  $("#qrStatus").innerHTML = st === "waiting" ? `<b>${ST.players}</b> người đã vào phòng chờ`
+    : st === "countdown" ? `Bắt đầu sau <b>${Math.max(0, left)}</b> giây`
+    : st === "running" ? `Đang chơi · còn <b>${Math.max(0, end)}</b> giây`
+    : `Kết quả · Top ${CONFIG.topN} nhận quà`;
+  const ended = st === "ended";
+  $("#qrTop").hidden = !ended; $("#qrSteps").hidden = ended;
+  if (ended && Date.now() - qrTopAt > 4000) {
+    qrTopAt = Date.now();
+    rpc("catch_board").then(rows => {
+      $("#qrTop").innerHTML = rows.slice(0, CONFIG.topN).map(r => `<li><span class="rk">${r.rank}</span><span class="nm">${esc(r.name)}<small>${esc(r.unit)}</small></span><span class="sc">${r.best}</span></li>`).join("")
+        || '<li><span class="nm">Chưa có ai ghi điểm</span></li>';
+    }).catch(() => {});
+  }
+}
+
 /* ===================== ADMIN (BTC) ===================== */
 let admKey = null, admData = null;
 try { admKey = sessionStorage.getItem("catch-admin-key"); } catch (e) {}
@@ -1322,6 +1393,7 @@ $$(".topN").forEach(el => el.textContent = CONFIG.topN);
 setMuteIcon(); renderBrandStrip(); renderHome(); refreshMe(); pollState();
 setInterval(() => { if ($("#s-home").classList.contains("active") && ST && ST.status === "countdown") renderHome(); }, 500);
 if (location.hash === "#admin") go("admin");
+else if (location.hash === "#qr") go("qr");
 else { let seen = false; try { seen = sessionStorage.getItem("greeted") === "1"; } catch (e) {} if (!seen) openGreet(); }
 if (MOCK) document.body.insertAdjacentHTML("beforeend", '<div class="mock-badge">CHẠY THỬ · dữ liệu giả lập</div>');
 // ?go=result|board|rules|admin dùng để chụp màn hình kiểm tra
