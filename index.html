@@ -285,6 +285,30 @@ body:has(#s-qr.active) #app{max-width:none;padding:0}
 .qr-top .nm small{display:block;font-weight:500;font-size:.6em;color:var(--muted)}
 .qr-top .sc{font-weight:800;color:var(--gold);font-variant-numeric:tabular-nums}
 @media (max-aspect-ratio:1/1){.qr-board{grid-template-columns:1fr;justify-items:center;text-align:center}.qr-logo{margin:0 auto 2vh}.qr-frame img{width:70vw}.qr-top{max-width:90vw;width:100%}}
+.guide{position:fixed;inset:0;z-index:75;overflow:auto;display:flex;align-items:center;justify-content:center;padding:4vh 4vw;background:linear-gradient(180deg,rgba(11,8,5,.82),rgba(11,8,5,.92)),#0B0805 url("img/bg-ngang.jpg") center/cover no-repeat;animation:fadeIn .25s ease}
+.guide[hidden]{display:none !important}
+.guide-inner{width:min(1180px,100%);display:flex;flex-direction:column;gap:3vh}
+.guide-head{display:flex;align-items:center;gap:2.4vw}
+.guide-logo{height:clamp(70px,11vh,140px);width:auto}
+.guide-eyebrow{font-size:clamp(11px,1.7vh,18px);letter-spacing:.12em;text-transform:uppercase;color:var(--gold);font-weight:700}
+.guide-title{font-size:clamp(34px,7vh,84px);font-weight:600;line-height:1.05;margin:.4vh 0 0}
+.guide-steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:2vh 2vw}
+.guide-steps li{display:flex;gap:1.4vw;align-items:flex-start;padding:2.4vh 1.8vw;border-radius:var(--radius);background:var(--card);border:1px solid var(--card-b)}
+.guide-num{flex:0 0 auto;display:grid;place-items:center;width:clamp(38px,6.2vh,70px);height:clamp(38px,6.2vh,70px);border-radius:50%;background:linear-gradient(180deg,#FFE7AE,#D9A443);color:#1A1209;font-weight:800;font-size:clamp(17px,3vh,34px)}
+.guide-steps h2{margin:0 0 .8vh;font-family:var(--font);font-weight:700;font-size:clamp(17px,2.9vh,32px);line-height:1.2;color:#FFE7AE}
+.guide-steps p{margin:0;font-size:clamp(14px,2.2vh,25px);line-height:1.45;color:var(--muted)}
+.guide-qr{display:block;margin-top:1.4vh;width:clamp(110px,18vh,200px);height:auto;border-radius:12px;background:#FFF8EC;padding:6px}
+.guide-items{display:grid;grid-template-columns:repeat(4,1fr);gap:1vw;margin-top:1.6vh}
+.guide-items span{display:flex;flex-direction:column;align-items:center;text-align:center;gap:.4vh}
+.guide-items canvas{width:clamp(40px,7vh,76px);height:clamp(40px,7vh,76px)}
+.guide-items b{font-size:clamp(15px,2.6vh,30px);color:var(--gold);font-variant-numeric:tabular-nums}
+.guide-items .neg b{color:#FF8A80}
+.guide-items small{font-size:clamp(11px,1.6vh,18px);color:var(--muted);line-height:1.25}
+.guide-prize{margin:0;padding:1.8vh 2vw;border-radius:var(--radius);background:linear-gradient(90deg,rgba(252,209,122,.22),rgba(252,209,122,.06));border:1px solid rgba(252,209,122,.6);font-size:clamp(15px,2.5vh,30px);text-align:center}
+.guide-prize b{color:var(--gold)}
+.guide-actions{display:flex;justify-content:center;gap:12px}
+.guide-actions .btn{width:auto;min-width:160px}
+@media (max-width:760px){.guide-steps{grid-template-columns:1fr}.guide-head{gap:14px}}
 .mock-badge{position:fixed;left:8px;bottom:8px;z-index:90;padding:4px 8px;border-radius:8px;background:#F4B183;color:#1A1209;font-size:11px;font-weight:700}
 .toast{position:fixed;left:50%;bottom:max(24px,env(safe-area-inset-bottom));transform:translate(-50%,30px);opacity:0;z-index:80;padding:11px 16px;border-radius:12px;background:#fff;color:#111;font-weight:600;font-size:14px;box-shadow:0 10px 30px rgba(0,0,0,.35);transition:all .25s;max-width:90vw;text-align:center}
 .toast.show{opacity:1;transform:translate(-50%,0)}
@@ -417,7 +441,7 @@ body:has(#s-qr.active) #app{max-width:none;padding:0}
       <div class="card mt12">
         <div class="adm-state" id="admState"></div>
         <div class="adm-row"><span id="admStats" class="small"></span>
-          <span class="adm-actions"><button class="btn btn-primary btn-sm" id="btnAdmStart">Bắt đầu (đếm ngược 10 giây)</button><button class="btn btn-ghost btn-sm" id="btnAdmReset">Vòng mới (xoá điểm)</button><button class="btn btn-ghost btn-sm" id="btnAdmCsv">Tải Excel (CSV)</button><button class="btn btn-ghost btn-sm" id="btnAdmOut">Thoát</button></span>
+          <span class="adm-actions"><button class="btn btn-ghost btn-sm" id="btnAdmGuide">Hướng dẫn chơi</button><button class="btn btn-primary btn-sm" id="btnAdmStart">Bắt đầu (đếm ngược 10 giây)</button><button class="btn btn-ghost btn-sm" id="btnAdmReset">Vòng mới (xoá điểm)</button><button class="btn btn-ghost btn-sm" id="btnAdmCsv">Tải Excel (CSV)</button><button class="btn btn-ghost btn-sm" id="btnAdmOut">Thoát</button></span>
         </div>
       </div>
       <div class="card mt12 adm-qr">
@@ -466,6 +490,30 @@ body:has(#s-qr.active) #app{max-width:none;padding:0}
   <div class="overlay" id="ovCount"><div class="countdown" id="countNum">3</div></div>
   <div class="overlay" id="ovEnd"><div class="countdown" style="font-size:64px;animation:none">Hết giờ!</div></div>
 </section>
+
+<!-- ================= HƯỚNG DẪN CHƠI (BTC chiếu cho cả phòng) ================= -->
+<div class="guide" id="guide" role="dialog" aria-modal="true" aria-labelledby="guideTitle" hidden>
+  <div class="guide-inner">
+    <header class="guide-head">
+      <img class="guide-logo" src="img/lotus-10.png" alt="Lotus Hospitality · 10 Years">
+      <div><span class="guide-eyebrow">Hứng quà 10 năm · Lotus Hospitality</span><h1 id="guideTitle" class="guide-title">Hướng dẫn chơi</h1></div>
+    </header>
+    <ol class="guide-steps">
+      <li><span class="guide-num">1</span><div><h2>Quét mã QR</h2><p>Mở camera điện thoại và quét mã này.</p><img class="guide-qr" src="img/qr.svg" alt="Mã QR vào game"></div></li>
+      <li><span class="guide-num">2</span><div><h2>Đăng ký vào phòng chờ</h2><p>Nhập họ tên, số điện thoại, đơn vị. Giữ màn hình điện thoại mở, mỗi người chơi 1 lượt.</p></div></li>
+      <li><span class="guide-num">3</span><div><h2>Cả phòng chơi cùng lúc</h2><p>BTC bấm bắt đầu, mọi điện thoại đếm ngược 10 giây rồi cùng chơi 45 giây.</p></div></li>
+      <li><span class="guide-num">4</span><div><h2>Kéo khay hứng quà</h2><p>Kéo ngón tay qua lại để hứng logo, né mây giông.</p>
+        <div class="guide-items">
+          <span><canvas data-g="brand"></canvas><b>+10</b><small>Logo thương hiệu</small></span>
+          <span><canvas data-g="lotus"></canvas><b>+30</b><small>Logo Lotus</small></span>
+          <span><canvas data-g="cake"></canvas><b>x2</b><small>Bánh kem · 8 giây</small></span>
+          <span class="neg"><canvas data-g="storm"></canvas><b>−20</b><small>Mây giông</small></span>
+        </div></div></li>
+    </ol>
+    <p class="guide-prize">Hết giờ là hiện bảng xếp hạng · <b>Top <span class="topN">5</span></b> điểm cao nhất nhận quà</p>
+    <div class="guide-actions"><button class="btn btn-ghost" id="btnGuideFull">Toàn màn hình</button><button class="btn btn-primary" id="btnGuideClose">Đóng</button></div>
+  </div>
+</div>
 
 <!-- ================= GREETING ================= -->
 <div class="greet-wrap" id="greet" role="dialog" aria-modal="true" aria-labelledby="greetTitle">
@@ -1325,6 +1373,27 @@ function renderQrBoard() {
   }
 }
 
+/* ===================== HƯỚNG DẪN CHƠI ===================== */
+function openGuide() {
+  $("#guide").hidden = false;
+  $$("#guide canvas[data-g]").forEach(c => {
+    const box = 76, dpr = Math.min(2, devicePixelRatio || 1); c.width = box * dpr; c.height = box * dpr;
+    const ctx = c.getContext("2d"); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, box, box);
+    const k = c.dataset.g;
+    if (k === "brand") drawBrand(ctx, 38, 38, 30, 0, 1);
+    else if (k === "lotus") drawLotus(ctx, 38, 38, 28);
+    else if (k === "cake") drawCake(ctx, 38, 46, 26, 0, false);
+    else drawStorm(ctx, 38, 28, 26);
+  });
+}
+function closeGuide() { if (document.fullscreenElement) document.exitFullscreen().catch(() => {}); $("#guide").hidden = true; }
+$("#btnGuideClose").addEventListener("click", closeGuide);
+$("#btnGuideFull").addEventListener("click", () => {
+  if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+  else if ($("#guide").requestFullscreen) $("#guide").requestFullscreen().catch(() => {});
+});
+addEventListener("keydown", e => { if (e.key === "Escape" && !$("#guide").hidden && !document.fullscreenElement) closeGuide(); });
+
 /* ===================== ADMIN (BTC) ===================== */
 let admKey = null, admData = null;
 try { admKey = sessionStorage.getItem("catch-admin-key"); } catch (e) {}
@@ -1362,6 +1431,7 @@ function renderAdminState() {
   $("#btnAdmStart").hidden = st !== "waiting";
   $("#btnAdmReset").hidden = st === "waiting" || st === "countdown" || st === "running";
 }
+$("#btnAdmGuide").addEventListener("click", openGuide);
 $("#btnAdmStart").addEventListener("click", async () => {
   const b = $("#btnAdmStart"); b.disabled = true;
   try { const t0 = Date.now(); const st = await rpc("catch_admin_start", { p_key: admKey, p_delay: 10 }); setClock(st, t0); ST = st; renderAdminState(); pollState(); }
